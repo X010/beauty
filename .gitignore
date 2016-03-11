@@ -4,5 +4,6 @@ target
 *.iml
 *.ipr
 *.iws
+build.*
 logs
 target

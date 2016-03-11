@@ -8,12 +8,15 @@
 
     <context:component-scan base-package="com.dssmp.beauty.controller"/>
 
-    <mvc:resources mapping="/plugins/**" location="/plugins/"/>
-    <mvc:resources mapping="/dist/**" location="/dist/"/>
-    <mvc:resources mapping="/bootstrap/**" location="/bootstrap/"/>
-    <mvc:resources mapping="/font/**" location="/font/**"/>
-    <mvc:resources mapping="/img/**" location="/img/**"/>
-    <mvc:resources location="/resources/**" mapping="/resources/**"/>
+    <mvc:resources mapping="/css/**" location="/css/"/>
+    <mvc:resources mapping="/js/**" location="/js/"/>
+    <mvc:resources mapping="/font/**" location="/font/"/>
+    <mvc:resources mapping="/img/**" location="/img/"/>
+    <mvc:resources mapping="/media/**" location="/media/"/>
+    <mvc:resources mapping="/images/**" location="/images/"/>
+    <mvc:resources mapping="/doc/**" location="/doc/"/>
+    <mvc:resources mapping="/fonts/**" location="/fonts/"/>
+    <mvc:resources location="/resources/**" mapping="/resources/"/>
     <mvc:resources location="/favicon.ico" mapping="/favicon.ico"/>
     <mvc:resources location="/jquery.js" mapping="/jquery.js"/>
 
@@ -63,5 +66,6 @@
             <value>10000000000</value>
         </property>
     </bean>
+    <mvc:annotation-driven></mvc:annotation-driven>
     <import resource="freemarker.xml"/>
 </beans>
