@@ -1,4 +1,4 @@
-package com.dssmp.beauty.model;
+package com.dssmp.beauty.util;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -17,45 +17,19 @@ package com.dssmp.beauty.model;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public abstract class AbstractMenu {
+public class CONST {
     /**
-     * 菜单ID
+     * GET方式
      */
-    private long menuid;
-
-    /**
-     * 菜单名称
-     */
-    private String menuname;
+    public static String HTTP_METHOD_GET = "GET";
 
     /**
-     * 图标
+     * POST
      */
-    private String icon;
+    public static String HTTP_METHOD_POST = "POST";
 
-
-
-    public long getMenuid() {
-        return menuid;
-    }
-
-    public void setMenuid(long menuid) {
-        this.menuid = menuid;
-    }
-
-    public String getMenuname() {
-        return menuname;
-    }
-
-    public void setMenuname(String menuname) {
-        this.menuname = menuname;
-    }
-
-    public String getIcon() {
-        return icon;
-    }
-
-    public void setIcon(String icon) {
-        this.icon = icon;
-    }
+    /**
+     * 登陆标识
+     */
+    public static String LOGIN_FLAG = "LOGIN_FLAG";
 }

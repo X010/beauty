@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>菜单管理</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/ionicons.min.css">
+    <link rel="stylesheet" href="/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="/css/skins/skin-purple.min.css">
+    <link rel="stylesheet" href="/css/admin.css">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/jquery.easyui.min.1.2.2.js"></script>
+    <script src="/js/admintle.min.js"></script>
+</head>
+<body>
+<div class="content">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            菜单列表
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i>菜单</a></li>
+            <li class="active">列表</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">List Table</h3>
+
+                        <div class="box-tools">
+                            <div class="input-group input-group-sm" style="width: 150px;">
+                                <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+
+                                <div class="input-group-btn">
+                                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i>Search</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body table-responsive no-padding">
+                        <table class="table table-hover">
+                            <tr>
+                                <th>菜单名称</th>
+                                <th>菜单级别</th>
+                                <!--<th>触发器名</th>-->
+                                <th>菜单地址</th>
+                                <th>操作</th>
+                            </tr>
+                            <#if menus??>
+                                <#list menus as menu>
+                                    <tr>
+                                        <td>${menu.menuname}</td>
+                                        <td>顶级菜单</td>
+                                        <td></td>
+                                        <td><a class="btn btn-danger btn-xs" href="#">delete</a></td>
+                                    </tr>
+                                    <#if menu.menus??>
+                                        <#list menu.menus as item>
+                                            <tr>
+                                                <td>${item.menuname}</td>
+                                                <td>${menu.menuname}</td>
+                                                <td>${item.url}</td>
+                                                <td><a class="btn btn-danger btn-xs" href="#">delete</a></td>
+                                            </tr>
+                                        </#list>
+                                    </#if>
+                                </#list>
+                            </#if>
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+</body>
+</html>

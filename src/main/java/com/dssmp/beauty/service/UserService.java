@@ -1,4 +1,6 @@
-package com.dssmp.beauty.model;
+package com.dssmp.beauty.service;
+
+import com.dssmp.beauty.model.User;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -17,45 +19,29 @@ package com.dssmp.beauty.model;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public abstract class AbstractMenu {
-    /**
-     * 菜单ID
-     */
-    private long menuid;
+public interface UserService {
 
     /**
-     * 菜单名称
+     * 根据用户名与密码获取用户信息
+     *
+     * @param username
+     * @param password
+     * @return
      */
-    private String menuname;
+    public User getUserByUserNameAndPassword(String username, String password);
+
 
     /**
-     * 图标
+     * 保存用户信息
+     *
+     * @param user
      */
-    private String icon;
+    public void saveUser(User user);
 
-
-
-    public long getMenuid() {
-        return menuid;
-    }
-
-    public void setMenuid(long menuid) {
-        this.menuid = menuid;
-    }
-
-    public String getMenuname() {
-        return menuname;
-    }
-
-    public void setMenuname(String menuname) {
-        this.menuname = menuname;
-    }
-
-    public String getIcon() {
-        return icon;
-    }
-
-    public void setIcon(String icon) {
-        this.icon = icon;
-    }
+    /**
+     * 删除用户
+     *
+     * @param id
+     */
+    public void deleteUser(long id);
 }

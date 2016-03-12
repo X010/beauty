@@ -30,85 +30,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <![endif]-->
     <script type="text/javascript">
         var _menus = {
-            "menus": [
-                {
-                    "menuid": "1", "icon": "cogs", "menuname": "Beauty报表配置系统",
-                    "menus": [
-                        {
-                            "menuid": "13",
-                            "menuname": "商品品牌管理",
-                            "icon": "book",
-                            "url": "/sneaker/goodsbrand.html"
-                        },
-                        {
-                            "menuid": "14",
-                            "menuname": "商品类别管理",
-                            "icon": "bars",
-                            "url": "/sneaker/goodstype.html"
-                        }, {
-                            "menuid": "15",
-                            "menuname": "商品基础信息管理",
-                            "icon": "cubes",
-                            "url": "/sneaker/importgoods.html"
-                        },
-                        // {"menuid": "16", "menuname": "系统日志查询", "icon": "icon-sys", "url": "/sneaker/log.html"},
-                        {"menuid": "17", "menuname": "开通公司帐号", "icon": "users", "url": "/sneaker/accountList.html"},
-                        {
-                            "menuid": "18",
-                            "menuname": "系统权限管理",
-                            "icon": "unlock-alt",
-                            "url": "/sneaker/systemRole.html"
-                        },
-                        {
-                            "menuid": "19",
-                            "menuname": "系统帐号管理",
-                            "icon": "user",
-                            "url": "/sneaker/adminUserList.html"
-                        }, {
-                            "menuid": "20",
-                            "menuname": "付款方式管理",
-                            "icon": "credit-card",
-                            "url": "/sneaker/paytype.html"
-                        }
-                    ]
-                }, {
-                    "menuid": "2", "icon": "calendar-check-o", "menuname": "日志管理",
-                    menus: [{
-                        "menuid": "201",
-                        "menuname": "日志查看",
-                        "icon": "file-text-o",
-                        "url": "/sneaker/operate.html"
-                    }]
-                }, {
-                    "menuid": "3", "icon": "envelope-o", "menuname": "消息模块管理",
-                    menus: []
-                }, {
-                    "menuid": "4", "icon": "tasks", "menuname": "任务管理",
-                    menus: [{
-                        "menuid": "45",
-                        "menuname": "定时任务管理",
-                        "icon": "clock-o",
-                        "url": "/quartz/quartz.html"
-                    }]
-                }
-            ]
+            "menus":${leftmenu}
         };
     </script>
     <script>
-        $().ready(function(){
+        $().ready(function () {
             //初始化菜单
             var mdata = _menus.menus;
             var mhtml = $("#sideMenu");
 
-            for(var i=0; i < mdata.length; i++){
-                var item  = $('<li>' +
-                        '<a href="#"><i class="fa fa-fw fa-'+ mdata[i].icon +'"></i> <span>'+ mdata[i].menuname +'</span> <i class="fa fa-angle-left pull-right"></i></a>'+
+            for (var i = 0; i < mdata.length; i++) {
+                var item = $('<li>' +
+                        '<a href="#"><i class="fa fa-fw fa-' + mdata[i].icon + '"></i> <span>' + mdata[i].menuname + '</span> <i class="fa fa-angle-left pull-right"></i></a>' +
                         '</li>');
 
                 var subul = $('<ul class="treeview-menu"></ul>');
 
-                for(var j=0; j< mdata[i].menus.length; j++){
-                    var subli = '<li><a href="#" onclick="addTab(\''+mdata[i].menus[j].menuname+'\',\''+ mdata[i].menus[j].url +'\')"><i class="fa fa-fw fa-'+ mdata[i].menus[j].icon +'"></i> ' + mdata[i].menus[j].menuname +'</a></li>';
+                for (var j = 0; j < mdata[i].menus.length; j++) {
+                    var subli = '<li><a href="#" onclick="addTab(\'' + mdata[i].menus[j].menuname + '\',\'' + mdata[i].menus[j].url + '\')"><i class="fa fa-fw fa-' + mdata[i].menus[j].icon + '"></i> ' + mdata[i].menus[j].menuname + '</a></li>';
                     subul.append(subli);
                 }
 
@@ -118,18 +57,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
             //绑定退出登录事件
-            $('#btnLogout').click(function(){
+            $('#btnLogout').click(function () {
                 showConfirmLogout();
             })
 
             //tab栏定位
-            $(".tabs-header").css({"position":"fixed"});
+            $(".tabs-header").css({"position": "fixed"});
         });
 
         //退出登录确认对话框
-        function showConfirmLogout(){
+        function showConfirmLogout() {
             $('#modalConfirmMsg').text("您确定要退出本次登录吗？");
-            $('#btnConfirmYes').click(function(){
+            $('#btnConfirmYes').click(function () {
                 location.href = '/cms/loginout.html';
             });
             $('#modalConfirm').modal({
@@ -139,17 +78,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
         }
 
         //动态添加标签
-        function addTab(title, url){
-            if ($('#mainTabs').tabs('exists', title)){
+        function addTab(title, url) {
+            if ($('#mainTabs').tabs('exists', title)) {
                 $('#mainTabs').tabs('select', title);
             } else {
                 var ifameHeight = $("body").height() - 83;
-                var content = '<iframe scrolling="auto" frameborder="0"  src="'+url+'" style="width:100%; height:'+ ifameHeight +'px;"></iframe>';
-                $('#mainTabs').tabs('add',{
-                    title:title,
-                    content:content,
-                    closable:true,
-                    width:"100%"
+                var content = '<iframe scrolling="auto" frameborder="0"  src="' + url + '" style="width:100%; height:' + ifameHeight + 'px;"></iframe>';
+                $('#mainTabs').tabs('add', {
+                    title: title,
+                    content: content,
+                    closable: true,
+                    width: "100%"
                 });
             }
         }
@@ -196,7 +135,7 @@ desired effect
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#" id="btnLogout"><i class="fa fa-power-off"></i> 退出</a>
+                        <a href="loginout.action" id="btnLogout"><i class="fa fa-power-off"></i> 退出</a>
                     </li>
                 </ul>
             </div>

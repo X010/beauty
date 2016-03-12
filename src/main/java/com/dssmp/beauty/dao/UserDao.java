@@ -1,12 +1,10 @@
 package com.dssmp.beauty.dao;
 
-import com.dssmp.beauty.model.ParentMenu;
-import com.dssmp.beauty.model.SubMenu;
+import com.dssmp.beauty.model.User;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
-
-import java.util.List;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -25,40 +23,32 @@ import java.util.List;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public interface MenuDao {
+public interface UserDao {
 
     /**
-     * 获取一级菜单
+     * 登陆
      *
+     * @param username
+     * @param password
      * @return
      */
-    @Select("select * from beauty_menu where pid=0")
-    public List<ParentMenu> getRootMenus();
+    @Select("select * from beauty_user where username=#{username} and password=#{password} limit 1")
+    public User findUserByUserNameAndPassword(@Param("username") String username, @Param("password") String password);
 
 
     /**
-     * 获取子菜单
+     * 删除用户
      *
-     * @param pid
-     * @return
+     * @param id
      */
-    @Select("select * from beauty_menu where pid=#{pid}")
-    public List<SubMenu> getSubMenusByPid(@Param("pid") long pid);
-
+    @Delete("delete from beauty_user where id=#{id}")
+    public void deleteUser(@Param("id") long id);
 
     /**
-     * 保存一级菜单
+     * 添加一个用户
      *
-     * @param menu
+     * @param user
      */
-    @Insert("insert into beauty_menu(menuname,icon)values(#{menuname},#{icon})")
-    public void insertParentMenus(ParentMenu menu);
-
-    /**
-     * 保存二级菜单
-     *
-     * @param subMenu
-     */
-    @Insert("insert into beauty_menu(menuname,icon,pid,url)values(#{menuname},#{icon},#{pid},#{url})")
-    public void insertSubMenus(SubMenu subMenu);
+    @Insert("insert into beauty_user(username,password)values(#{username},#{password})")
+    public void insertUserByUser(User user);
 }

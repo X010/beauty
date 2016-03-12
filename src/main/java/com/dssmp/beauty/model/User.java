@@ -17,45 +17,45 @@ package com.dssmp.beauty.model;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public abstract class AbstractMenu {
-    /**
-     * 菜单ID
-     */
-    private long menuid;
+public class User {
 
     /**
-     * 菜单名称
+     * ID值
      */
-    private String menuname;
+    private long id;
 
     /**
-     * 图标
+     * 用户名
      */
-    private String icon;
+    private String username;
+
+    /**
+     * 密码
+     */
+    private String password;
 
 
-
-    public long getMenuid() {
-        return menuid;
+    public long getId() {
+        return id;
     }
 
-    public void setMenuid(long menuid) {
-        this.menuid = menuid;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public String getMenuname() {
-        return menuname;
+    public String getUsername() {
+        return username;
     }
 
-    public void setMenuname(String menuname) {
-        this.menuname = menuname;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getIcon() {
-        return icon;
+    public String getPassword() {
+        return password;
     }
 
-    public void setIcon(String icon) {
-        this.icon = icon;
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

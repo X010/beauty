@@ -1,10 +1,7 @@
-package com.dssmp.beauty.dao;
+package com.dssmp.beauty.service;
 
+import com.dssmp.beauty.model.AbstractMenu;
 import com.dssmp.beauty.model.ParentMenu;
-import com.dssmp.beauty.model.SubMenu;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -25,40 +22,27 @@ import java.util.List;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public interface MenuDao {
+public interface MenuService {
+
+
+    /**
+     * 获取菜单
+     *
+     * @return
+     */
+    public List<ParentMenu> getLeftMenu();
 
     /**
      * 获取一级菜单
      *
      * @return
      */
-    @Select("select * from beauty_menu where pid=0")
-    public List<ParentMenu> getRootMenus();
-
+    public List<ParentMenu> getParentMenu();
 
     /**
-     * 获取子菜单
+     * 保存菜单
      *
-     * @param pid
-     * @return
+     * @param abstractMenu
      */
-    @Select("select * from beauty_menu where pid=#{pid}")
-    public List<SubMenu> getSubMenusByPid(@Param("pid") long pid);
-
-
-    /**
-     * 保存一级菜单
-     *
-     * @param menu
-     */
-    @Insert("insert into beauty_menu(menuname,icon)values(#{menuname},#{icon})")
-    public void insertParentMenus(ParentMenu menu);
-
-    /**
-     * 保存二级菜单
-     *
-     * @param subMenu
-     */
-    @Insert("insert into beauty_menu(menuname,icon,pid,url)values(#{menuname},#{icon},#{pid},#{url})")
-    public void insertSubMenus(SubMenu subMenu);
+    public void saveMenus(AbstractMenu abstractMenu);
 }

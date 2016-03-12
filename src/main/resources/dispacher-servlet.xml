@@ -38,6 +38,19 @@
             </list>
         </property>
     </bean>
+
+    <!--
+    <bean id="sshInterceptor" class="com.dssmp.beauty.util.SshInterceptor"></bean>
+    <bean
+            class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+        <property name="interceptors">
+            <list>
+                <ref bean="sshInterceptor"/>
+            </list>
+        </property>
+    </bean>
+    -->
+    <mvc:annotation-driven></mvc:annotation-driven>
     <bean
             class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
         <property name="messageConverters">
@@ -58,6 +71,7 @@
     </bean>
 
 
+
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="defaultEncoding">
             <value>utf-8</value>
@@ -66,6 +80,5 @@
             <value>10000000000</value>
         </property>
     </bean>
-    <mvc:annotation-driven></mvc:annotation-driven>
     <import resource="freemarker.xml"/>
 </beans>

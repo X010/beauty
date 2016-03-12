@@ -1,4 +1,7 @@
-package com.dssmp.beauty.model;
+package com.dssmp.beauty;
+
+import com.dssmp.beauty.util.MD5Util;
+import org.junit.Test;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -17,45 +20,10 @@ package com.dssmp.beauty.model;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public abstract class AbstractMenu {
-    /**
-     * 菜单ID
-     */
-    private long menuid;
+public class MD5UtilUnitTest {
 
-    /**
-     * 菜单名称
-     */
-    private String menuname;
-
-    /**
-     * 图标
-     */
-    private String icon;
-
-
-
-    public long getMenuid() {
-        return menuid;
-    }
-
-    public void setMenuid(long menuid) {
-        this.menuid = menuid;
-    }
-
-    public String getMenuname() {
-        return menuname;
-    }
-
-    public void setMenuname(String menuname) {
-        this.menuname = menuname;
-    }
-
-    public String getIcon() {
-        return icon;
-    }
-
-    public void setIcon(String icon) {
-        this.icon = icon;
+    @Test
+    public void passwordUnitTest() {
+        System.out.println(MD5Util.MD5("123456"));
     }
 }
