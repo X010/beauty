@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -34,6 +36,22 @@ public interface UserDao {
      */
     @Select("select * from beauty_user where username=#{username} and password=#{password} limit 1")
     public User findUserByUserNameAndPassword(@Param("username") String username, @Param("password") String password);
+
+    /**
+     * 根据用户获取用户
+     * @param username
+     * @return
+     */
+    @Select("select * from beauty_user where username=#{username}")
+    public User findUserByUserName(@Param("username") String username);
+
+    /**
+     * 获取所有的用户信息
+     *
+     * @return
+     */
+    @Select("select * from beauty_user order by id desc")
+    public List<User> findAllUser();
 
 
     /**

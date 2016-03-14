@@ -8,6 +8,8 @@ import com.google.common.base.Preconditions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -41,10 +43,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> getAllUser() {
+        return this.userDao.findAllUser();
+    }
+
+    @Override
     public void saveUser(User user) {
         Preconditions.checkNotNull(user);
-        user.setPassword(MD5Util.MD5(user.getPassword()));
-        this.userDao.insertUserByUser(user);
+        //看检测用户是否存在
+        User tempUser = this.userDao.findUserByUserName(user.getUsername());
+        if (tempUser == null) {
+            user.setPassword(MD5Util.MD5(user.getPassword()));
+            this.userDao.insertUserByUser(user);
+        }
     }
 
     @Override

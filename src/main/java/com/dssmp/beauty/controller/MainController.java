@@ -5,6 +5,7 @@ import com.dssmp.beauty.model.ParentMenu;
 import com.dssmp.beauty.model.SubMenu;
 import com.dssmp.beauty.model.User;
 import com.dssmp.beauty.service.MenuService;
+import com.dssmp.beauty.service.PageService;
 import com.dssmp.beauty.service.UserService;
 import com.dssmp.beauty.util.CONST;
 import com.dssmp.beauty.util.JsonParser;
@@ -45,6 +46,9 @@ public class MainController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private PageService pageService;
+
 
     /**
      * 登陆
@@ -71,6 +75,7 @@ public class MainController {
         model.setViewName("login");
         return model;
     }
+
 
     /**
      * 登出
@@ -174,6 +179,24 @@ public class MainController {
     }
 
     /**
+     * 删除菜单
+     *
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "menu_d.action")
+    public ModelAndView menu_d(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
+        long mid = RequestUtil.getLong(request, "mid", 0);
+        if (mid > 0) {
+            this.menuService.deleteMenus(mid);
+        }
+        model.setViewName("redirect:menu_m.action");
+        return model;
+    }
+
+    /**
      * 用户管理
      *
      * @param request
@@ -183,8 +206,77 @@ public class MainController {
      */
     @RequestMapping(value = "user_m.action")
     public ModelAndView user_m(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
-
+        if (CONST.HTTP_METHOD_POST.equals(request.getMethod())) {
+            String username = RequestUtil.getString(request, "username", null);
+            String password = RequestUtil.getString(request, "password", null);
+            if (!Strings.isNullOrEmpty(username) && !Strings.isNullOrEmpty(password)) {
+                User user = new User();
+                user.setPassword(password);
+                user.setUsername(username);
+                this.userService.saveUser(user);
+                model.setViewName("redirect:user_m.action");
+                return model;
+            }
+        }
+        List<User> users = this.userService.getAllUser();
+        if (users != null) {
+            model.addObject("users", users);
+        }
         model.setViewName("user_m");
+        return model;
+    }
+
+    /**
+     * 删除用户
+     *
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "user_d.action")
+    public ModelAndView user_d(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
+        long uid = RequestUtil.getLong(request, "uid", 0);
+        if (uid > 0) {
+            this.userService.deleteUser(uid);
+        }
+        model.setViewName("redirect:user_m.action");
+        return model;
+    }
+
+    /**
+     * 404页面
+     *
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "404.action")
+    public ModelAndView p404(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
+        model.setViewName("404");
+        return model;
+    }
+
+
+    /**
+     * 页面跳转生成页面
+     *
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "redirect.action")
+    public ModelAndView redirectPage(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
+        String page = RequestUtil.getString(request, "page", null);
+        if (!Strings.isNullOrEmpty(page)) {
+
+
+            model.setViewName("beauty");
+        } else {
+            model.setViewName("404");
+        }
         return model;
     }
 }

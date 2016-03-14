@@ -1,5 +1,7 @@
 package com.dssmp.beauty.model;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -27,6 +29,7 @@ public class User {
     /**
      * 用户名
      */
+    @JSONField(deserialize = false)
     private String username;
 
     /**

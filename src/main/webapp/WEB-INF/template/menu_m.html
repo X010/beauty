@@ -63,7 +63,7 @@
                                         <td>${menu.menuname}</td>
                                         <td>顶级菜单</td>
                                         <td></td>
-                                        <td><a class="btn btn-danger btn-xs" href="#">delete</a></td>
+                                        <td><a class="btn btn-danger btn-xs" href="menu_d.action?mid=${menu.menuid}">delete</a></td>
                                     </tr>
                                     <#if menu.menus??>
                                         <#list menu.menus as item>
@@ -71,7 +71,7 @@
                                                 <td>${item.menuname}</td>
                                                 <td>${menu.menuname}</td>
                                                 <td>${item.url}</td>
-                                                <td><a class="btn btn-danger btn-xs" href="#">delete</a></td>
+                                                <td><a class="btn btn-danger btn-xs" href="menu_d.action?mid=${item.menuid}">delete</a></td>
                                             </tr>
                                         </#list>
                                     </#if>

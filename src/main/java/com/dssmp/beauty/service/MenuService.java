@@ -45,4 +45,11 @@ public interface MenuService {
      * @param abstractMenu
      */
     public void saveMenus(AbstractMenu abstractMenu);
+
+    /**
+     * 删除菜单
+     *
+     * @param mid
+     */
+    public void deleteMenus(long mid);
 }

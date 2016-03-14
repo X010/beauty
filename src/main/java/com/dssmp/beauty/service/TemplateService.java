@@ -1,9 +1,5 @@
 package com.dssmp.beauty.service;
 
-import com.dssmp.beauty.model.User;
-
-import java.util.List;
-
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -21,36 +17,5 @@ import java.util.List;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public interface UserService {
-
-    /**
-     * 根据用户名与密码获取用户信息
-     *
-     * @param username
-     * @param password
-     * @return
-     */
-    public User getUserByUserNameAndPassword(String username, String password);
-
-    /**
-     * 获取所有用户
-     *
-     * @return
-     */
-    public List<User> getAllUser();
-
-
-    /**
-     * 保存用户信息
-     *
-     * @param user
-     */
-    public void saveUser(User user);
-
-    /**
-     * 删除用户
-     *
-     * @param id
-     */
-    public void deleteUser(long id);
+public interface TemplateService {
 }

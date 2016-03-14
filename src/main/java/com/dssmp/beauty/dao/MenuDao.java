@@ -35,6 +35,14 @@ public interface MenuDao {
     @Select("select * from beauty_menu where pid=0")
     public List<ParentMenu> getRootMenus();
 
+    /**
+     * 根据ID删除菜单
+     *
+     * @param mid
+     */
+    @Select("delete from beauty_menu where   menuid=#{menuid}")
+    public void deleteMenus(@Param("menuid") long mid);
+
 
     /**
      * 获取子菜单
@@ -44,6 +52,15 @@ public interface MenuDao {
      */
     @Select("select * from beauty_menu where pid=#{pid}")
     public List<SubMenu> getSubMenusByPid(@Param("pid") long pid);
+
+    /**
+     * 根据ID获取菜单
+     *
+     * @param mid
+     * @return
+     */
+    @Select("select * from beauty_menu where  menuid=#{menuid}")
+    public SubMenu findSubMenuByMid(@Param("menuid") long mid);
 
 
     /**

@@ -63,4 +63,25 @@ public class MenuServiceImpl implements MenuService {
             this.menuDao.insertSubMenus((SubMenu) abstractMenu);
         }
     }
+
+    @Override
+    public void deleteMenus(long mid) {
+        Preconditions.checkNotNull(mid > 0);
+        SubMenu subMenu = this.menuDao.findSubMenuByMid(mid);
+        if (subMenu != null) {
+            boolean iscanDelete = true;
+            if (subMenu.getPid() == 0) {
+                List<SubMenu> subMenus = this.menuDao.getSubMenusByPid(subMenu.getMenuid());
+                if (subMenus != null && subMenus.size() > 0) {
+                    iscanDelete = false;
+                }
+            }
+            if (iscanDelete) {
+                this.menuDao.deleteMenus(mid);
+            }
+        }
+    }
+
+
+
 }

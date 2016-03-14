@@ -1,8 +1,9 @@
-package com.dssmp.beauty.service;
+package com.dssmp.beauty.service.impl;
 
-import com.dssmp.beauty.model.User;
-
-import java.util.List;
+import com.dssmp.beauty.dao.PageDao;
+import com.dssmp.beauty.service.PageService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -21,36 +22,11 @@ import java.util.List;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public interface UserService {
+@Service
+public class PageServiceImpl implements PageService {
 
-    /**
-     * 根据用户名与密码获取用户信息
-     *
-     * @param username
-     * @param password
-     * @return
-     */
-    public User getUserByUserNameAndPassword(String username, String password);
-
-    /**
-     * 获取所有用户
-     *
-     * @return
-     */
-    public List<User> getAllUser();
+    @Autowired
+    private PageDao pageDao;
 
 
-    /**
-     * 保存用户信息
-     *
-     * @param user
-     */
-    public void saveUser(User user);
-
-    /**
-     * 删除用户
-     *
-     * @param id
-     */
-    public void deleteUser(long id);
 }

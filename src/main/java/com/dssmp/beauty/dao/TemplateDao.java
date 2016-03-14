@@ -1,8 +1,4 @@
-package com.dssmp.beauty.service;
-
-import com.dssmp.beauty.model.User;
-
-import java.util.List;
+package com.dssmp.beauty.dao;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -20,37 +16,9 @@ import java.util.List;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ * 模板布局控制
  */
-public interface UserService {
-
-    /**
-     * 根据用户名与密码获取用户信息
-     *
-     * @param username
-     * @param password
-     * @return
-     */
-    public User getUserByUserNameAndPassword(String username, String password);
-
-    /**
-     * 获取所有用户
-     *
-     * @return
-     */
-    public List<User> getAllUser();
+public interface TemplateDao {
 
 
-    /**
-     * 保存用户信息
-     *
-     * @param user
-     */
-    public void saveUser(User user);
-
-    /**
-     * 删除用户
-     *
-     * @param id
-     */
-    public void deleteUser(long id);
 }
