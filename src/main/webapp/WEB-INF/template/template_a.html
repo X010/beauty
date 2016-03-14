@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="UTF-8">
+    <title>模板列表</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/ionicons.min.css">
+    <link rel="stylesheet" href="/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="/css/skins/skin-purple.min.css">
+    <link rel="stylesheet" href="/css/admin.css">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/jquery.easyui.min.1.2.2.js"></script>
+    <script src="/js/admintle.min.js"></script>
+</head>
+<body>
+<div class="content">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            添加模板
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i>模板</a></li>
+            <li class="active">配置</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <!-- Horizontal Form -->
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Add Template<span style="font-size: 12px;">  *建议使用英文字符</span></h3>
+                </div>
+                <!-- /.box-header -->
+                <!-- form start -->
+                <form method="post" action="template_a.action" class="form-horizontal">
+
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="name" class="col-sm-2 control-label">模板名称</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="name" name="name" placeholder="菜单名称">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="name" class="col-sm-2 control-label">模板介绍</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="description" name="description" placeholder="菜单名称">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="header" class="col-sm-2 control-label">模板头部</label>
+                            <div class="col-sm-10">
+                                <textarea id="header" name="header" rows="5" cols="80"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="content" class="col-sm-2 control-label">模板内容</label>
+                            <div class="col-sm-10">
+                                <textarea id="content" name="content" rows="10" cols="120"></textarea>
+                            </div>
+                        </div>
+                        <div id="params">
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer">
+
+                        <button type="button" class="btn btn-default">预览</button>
+
+                        <button type="submit" class="btn btn-info pull-right">保存</button>
+
+                    </div>
+                    <!-- /.box-footer -->
+                </form>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+
+</div>
+</body>
+</html>

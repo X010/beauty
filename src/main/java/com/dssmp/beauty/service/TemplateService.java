@@ -1,5 +1,9 @@
 package com.dssmp.beauty.service;
 
+import com.dssmp.beauty.model.Template;
+
+import java.util.List;
+
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -18,4 +22,14 @@ package com.dssmp.beauty.service;
  * limitations under the License.
  */
 public interface TemplateService {
+
+
+    /**
+     * 获取所有模板
+     *
+     * @return
+     */
+    public List<Template> getAllTemplate();
+
+
 }

@@ -6,6 +6,7 @@ import com.dssmp.beauty.model.SubMenu;
 import com.dssmp.beauty.model.User;
 import com.dssmp.beauty.service.MenuService;
 import com.dssmp.beauty.service.PageService;
+import com.dssmp.beauty.service.TemplateService;
 import com.dssmp.beauty.service.UserService;
 import com.dssmp.beauty.util.CONST;
 import com.dssmp.beauty.util.JsonParser;
@@ -48,6 +49,9 @@ public class MainController {
 
     @Autowired
     private PageService pageService;
+
+    @Autowired
+    private TemplateService templateService;
 
 
     /**
@@ -241,6 +245,67 @@ public class MainController {
             this.userService.deleteUser(uid);
         }
         model.setViewName("redirect:user_m.action");
+        return model;
+    }
+
+    /**
+     * 添加权限项
+     *
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "role_a.action")
+    public ModelAndView role_a(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
+
+        return model;
+    }
+
+    /**
+     * 权限项管理
+     *
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "role_m.action")
+    public ModelAndView role_m(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
+
+        return model;
+    }
+
+
+    /**
+     * 模板列表
+     *
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "template_m.action")
+    public ModelAndView template_m(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
+
+        model.setViewName("template_m");
+        return model;
+    }
+
+    /**
+     * 添加模板
+     *
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "template_a.action")
+    public ModelAndView template_a(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
+        if (CONST.HTTP_METHOD_POST.equals(request.getMethod())) {
+
+        }
+        model.setViewName("template_a");
         return model;
     }
 

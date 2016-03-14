@@ -1,7 +1,12 @@
 package com.dssmp.beauty.service.impl;
 
+import com.dssmp.beauty.dao.TemplateDao;
+import com.dssmp.beauty.model.Template;
 import com.dssmp.beauty.service.TemplateService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -23,5 +28,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class TemplateServceImpl implements TemplateService {
 
+    @Autowired
+    private TemplateDao templateDao;
 
+
+    @Override
+    public List<Template> getAllTemplate() {
+        return null;
+    }
 }
