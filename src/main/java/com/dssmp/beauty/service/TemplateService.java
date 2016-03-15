@@ -31,5 +31,17 @@ public interface TemplateService {
      */
     public List<Template> getAllTemplate();
 
+    /**
+     * 保存模板
+     *
+     * @param template
+     */
+    public void saveTemplate(Template template);
 
+    /**
+     * 删除模板
+     *
+     * @param id
+     */
+    public void deleteTemplate(long id);
 }

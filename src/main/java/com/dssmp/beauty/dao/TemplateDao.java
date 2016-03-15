@@ -1,5 +1,13 @@
 package com.dssmp.beauty.dao;
 
+import com.dssmp.beauty.model.Template;
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
+
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -20,5 +28,28 @@ package com.dssmp.beauty.dao;
  */
 public interface TemplateDao {
 
+    /**
+     * 保存保模板信息
+     *
+     * @param template
+     */
+    @Insert("insert into beauty_template(title,description,createtime,header,status,content,tagNum,tagMap)values(#{title},#{description},#{createtime},#{header}" +
+            ",#{status},#{content},#{tagNum},#{tagMap})")
+    public void insertTemplate(Template template);
 
+    /**
+     * 获取模板列表
+     *
+     * @return
+     */
+    @Select("select * from beauty_template")
+    public List<Template> getAllTemplate();
+
+    /**
+     * 删除模板
+     *
+     * @param id
+     */
+    @Delete("delete from beauty_template where id=#{id}")
+    public void deleteTemplate(@Param("id") long id);
 }

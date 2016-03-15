@@ -20,5 +20,5 @@ package com.dssmp.beauty.util;
  */
 public class TemplateUntil {
 
-
+    
 }

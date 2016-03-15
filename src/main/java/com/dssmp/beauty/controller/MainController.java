@@ -323,8 +323,29 @@ public class MainController {
      */
     @RequestMapping(value = "template_m.action")
     public ModelAndView template_m(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
-
+        List<Template> templates = this.templateService.getAllTemplate();
+        if (templates != null) {
+            model.addObject("templates", templates);
+        }
         model.setViewName("template_m");
+        return model;
+    }
+
+    /**
+     * 删除模板
+     *
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "template_d.action")
+    public ModelAndView template_d(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
+        long id = RequestUtil.getLong(request, "id", 0);
+        if (id > 0) {
+            this.templateService.deleteTemplate(id);
+        }
+        model.setViewName("redirect:template_m.action");
         return model;
     }
 
@@ -352,8 +373,11 @@ public class MainController {
                 template.setContent(content);
                 template.setHeader(header);
                 template.setDescription(description);
+                template.setTitle(name);
 
+                //做模板分析
 
+                this.templateService.saveTemplate(template);
             }
         }
         model.setViewName("template_a");

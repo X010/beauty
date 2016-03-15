@@ -3,6 +3,7 @@ package com.dssmp.beauty.service.impl;
 import com.dssmp.beauty.dao.TemplateDao;
 import com.dssmp.beauty.model.Template;
 import com.dssmp.beauty.service.TemplateService;
+import com.google.common.base.Preconditions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +35,23 @@ public class TemplateServceImpl implements TemplateService {
 
     @Override
     public List<Template> getAllTemplate() {
-        return null;
+        return this.templateDao.getAllTemplate();
+    }
+
+    @Override
+    public void saveTemplate(Template template) {
+        Preconditions.checkNotNull(template);
+
+        if (template.getId() > 0) {
+
+        } else {
+            this.templateDao.insertTemplate(template);
+        }
+    }
+
+    @Override
+    public void deleteTemplate(long id) {
+        Preconditions.checkArgument(id > 0);
+        this.templateDao.deleteTemplate(id);
     }
 }
