@@ -67,6 +67,14 @@ public class Template {
      */
     private String tagMap;
 
+    public String getTagMap() {
+        return tagMap;
+    }
+
+    public void setTagMap(String tagMap) {
+        this.tagMap = tagMap;
+    }
+
     public int getTagNum() {
         return tagNum;
     }

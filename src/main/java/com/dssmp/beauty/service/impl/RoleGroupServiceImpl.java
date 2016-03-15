@@ -7,6 +7,8 @@ import com.google.common.base.Preconditions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -34,7 +36,24 @@ public class RoleGroupServiceImpl implements RoleGroupService {
     @Override
     public void saveRoleGroup(RoleGroup roleGroup) {
         Preconditions.checkNotNull(roleGroup);
+        if (roleGroup.getId() > 0) {
+            //修改
+
+        } else {
+            this.roleGroupDao.insertRoleGroup(roleGroup);
+        }
+    }
 
 
+    @Override
+    public List<RoleGroup> getAllRoleGroup() {
+        return this.roleGroupDao.findRoleGroup();
+    }
+
+
+    @Override
+    public void deleteRoleGroup(long id) {
+        Preconditions.checkArgument(id > 0);
+        this.roleGroupDao.deleteRoleGroup(id);
     }
 }

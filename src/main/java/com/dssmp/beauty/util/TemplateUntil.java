@@ -1,8 +1,4 @@
-package com.dssmp.beauty.service;
-
-import com.dssmp.beauty.model.RoleGroup;
-
-import java.util.List;
+package com.dssmp.beauty.util;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -20,26 +16,9 @@ import java.util.List;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ * 模板工具
  */
-public interface RoleGroupService {
-
-    /**
-     * 保存权限组信息
-     *
-     * @param roleGroup
-     */
-    public void saveRoleGroup(RoleGroup roleGroup);
-
-    /**
-     * 获取所有的权限组信息
-     * @return
-     */
-    public List<RoleGroup> getAllRoleGroup();
+public class TemplateUntil {
 
 
-    /**
-     * 删除权限组
-     * @param id
-     */
-    public void deleteRoleGroup(long id);
 }

@@ -54,6 +54,19 @@
                                 <th>权限名称</th>
                                 <th>操作</th>
                             </tr>
+                            <#if roles??>
+                                <#list roles as item>
+                                    <tr>
+                                        <td>
+                                            ${item.roleGroupName}
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-danger btn-xs" href="role_d.action?id=${item.id}">delete</a>&nbsp;&nbsp;<a
+                                                class="btn btn-bitbucket btn-xs" href="#">edit</a>
+                                        </td>
+                                    </tr>
+                                </#list>
+                            </#if>
                         </table>
                     </div>
                     <!-- /.box-body -->

@@ -288,7 +288,27 @@ public class MainController {
      */
     @RequestMapping(value = "role_m.action")
     public ModelAndView role_m(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
+        List<RoleGroup> roleGroups = this.roleGroupService.getAllRoleGroup();
+        if (roleGroups != null) {
+            model.addObject("roles", roleGroups);
+        }
+        model.setViewName("role_m");
+        return model;
+    }
 
+    /**
+     * 删除权限组
+     *
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "role_d.action")
+    public ModelAndView role_d(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
+        long id = RequestUtil.getLong(request, "id", 0);
+        this.roleGroupService.deleteRoleGroup(id);
+        model.setViewName("redirect:role_m.action");
         return model;
     }
 
@@ -319,7 +339,22 @@ public class MainController {
     @RequestMapping(value = "template_a.action")
     public ModelAndView template_a(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
         if (CONST.HTTP_METHOD_POST.equals(request.getMethod())) {
+            String name = RequestUtil.getString(request, "name", null);
+            String description = RequestUtil.getString(request, "description", null);
+            String header = RequestUtil.getString(request, "header", null);
+            String content = RequestUtil.getString(request, "content", null);
 
+            //保存模板数据
+            if (!Strings.isNullOrEmpty(name) && !Strings.isNullOrEmpty(description) && !Strings.isNullOrEmpty(header) && !Strings.isNullOrEmpty(content)) {
+                Template template = new Template();
+                template.setCreatetime(new Date());
+                template.setStatus(1);
+                template.setContent(content);
+                template.setHeader(header);
+                template.setDescription(description);
+
+
+            }
         }
         model.setViewName("template_a");
         return model;
