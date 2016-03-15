@@ -1,6 +1,6 @@
 package com.dssmp.beauty.model;
 
-import com.alibaba.fastjson.annotation.JSONField;
+import java.util.Date;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -19,36 +19,29 @@ import com.alibaba.fastjson.annotation.JSONField;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public class User {
-
+public class RoleGroup {
     /**
-     * ID值
+     * 权限组
      */
     private long id;
 
     /**
-     * 用户名
+     * 组名称
      */
-    @JSONField(deserialize = false)
-    private String username;
+    private String roleGroupName;
+
 
     /**
-     * 密码
+     * 创建时间
      */
-    private String password;
+    private Date createtime;
+
 
     /**
-     * 权限组集合
+     * 项集合
      */
-    private String rgids;
+    private String roleItem;
 
-    public String getRgids() {
-        return rgids;
-    }
-
-    public void setRgids(String rgids) {
-        this.rgids = rgids;
-    }
 
     public long getId() {
         return id;
@@ -58,19 +51,27 @@ public class User {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getRoleGroupName() {
+        return roleGroupName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setRoleGroupName(String roleGroupName) {
+        this.roleGroupName = roleGroupName;
     }
 
-    public String getPassword() {
-        return password;
+    public Date getCreatetime() {
+        return createtime;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setCreatetime(Date createtime) {
+        this.createtime = createtime;
+    }
+
+    public String getRoleItem() {
+        return roleItem;
+    }
+
+    public void setRoleItem(String roleItem) {
+        this.roleItem = roleItem;
     }
 }

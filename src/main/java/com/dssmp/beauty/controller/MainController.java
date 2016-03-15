@@ -1,16 +1,11 @@
 package com.dssmp.beauty.controller;
 
-import com.dssmp.beauty.model.AbstractMenu;
-import com.dssmp.beauty.model.ParentMenu;
-import com.dssmp.beauty.model.SubMenu;
-import com.dssmp.beauty.model.User;
-import com.dssmp.beauty.service.MenuService;
-import com.dssmp.beauty.service.PageService;
-import com.dssmp.beauty.service.TemplateService;
-import com.dssmp.beauty.service.UserService;
+import com.dssmp.beauty.model.*;
+import com.dssmp.beauty.service.*;
 import com.dssmp.beauty.util.CONST;
 import com.dssmp.beauty.util.JsonParser;
 import com.dssmp.beauty.util.RequestUtil;
+import com.google.common.base.Joiner;
 import com.google.common.base.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -52,6 +48,9 @@ public class MainController {
 
     @Autowired
     private TemplateService templateService;
+
+    @Autowired
+    private RoleGroupService roleGroupService;
 
 
     /**
@@ -258,7 +257,24 @@ public class MainController {
      */
     @RequestMapping(value = "role_a.action")
     public ModelAndView role_a(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
+        if (CONST.HTTP_METHOD_POST.equals(request.getMethod())) {
+            String name = RequestUtil.getString(request, "name", null);
+            String[] role_items = request.getParameterValues("role_item");
+            if (!Strings.isNullOrEmpty(name) && role_items != null && role_items.length > 0) {
+                String roleItems = Joiner.on(",").join(role_items);
+                RoleGroup roleGroup = new RoleGroup();
+                roleGroup.setCreatetime(new Date());
+                roleGroup.setRoleGroupName(name);
+                roleGroup.setRoleItem(roleItems);
 
+                this.roleGroupService.saveRoleGroup(roleGroup);
+            }
+        }
+        //读取所有的菜单项
+        List<ParentMenu> menus = this.menuService.getLeftMenu();
+        if (menus != null) {
+            model.addObject("menus", menus);
+        }
         return model;
     }
 
