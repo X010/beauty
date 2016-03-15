@@ -5,6 +5,7 @@ import com.dssmp.beauty.service.*;
 import com.dssmp.beauty.util.CONST;
 import com.dssmp.beauty.util.JsonParser;
 import com.dssmp.beauty.util.RequestUtil;
+import com.dssmp.beauty.util.ResponseUtil;
 import com.google.common.base.Joiner;
 import com.google.common.base.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -150,7 +151,8 @@ public class MainController {
             String icons = RequestUtil.getString(request, "icons", null);
             long pid = RequestUtil.getLong(request, "pid", 0);
             String url = RequestUtil.getString(request, "url", null);
-
+            int ut = RequestUtil.getInt(request, "urltype", 1);
+            String param = RequestUtil.getString(request, "param", null);
             if (!Strings.isNullOrEmpty(menuname) && !Strings.isNullOrEmpty(icons)) {
                 AbstractMenu abstractMenu = null;
                 if (pid == 0) {
@@ -165,7 +167,11 @@ public class MainController {
                     abstractMenu.setMenuname(menuname);
                     ((SubMenu) abstractMenu).setPid(pid);
                     //如果URL为空则可以生成一个URL
-                    ((SubMenu) abstractMenu).setUrl(url);
+                    if (ut == 1) {
+                        ((SubMenu) abstractMenu).setUrl(url.toLowerCase());
+                    } else {
+                        ((SubMenu) abstractMenu).setUrl((CONST.REDIRECT + param).toLowerCase());
+                    }
                 }
                 this.menuService.saveMenus(abstractMenu);
                 model.setViewName("redirect:menu_m.action");
@@ -411,12 +417,62 @@ public class MainController {
     public ModelAndView redirectPage(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
         String page = RequestUtil.getString(request, "page", null);
         if (!Strings.isNullOrEmpty(page)) {
-
-
-            model.setViewName("beauty");
+            //判断PAGE对象是否存在,如果存在则进行模板渲染操作
+            String exPage = (CONST.REDIRECT + page).toLowerCase();
+            Page isExPage = this.pageService.getPageByUrl(exPage);
+            if (isExPage == null) {
+                List<Template> templates = this.templateService.getAllSimpleTemplate();
+                if (templates != null) {
+                    model.addObject("ts", templates);
+                }
+                model.addObject("page", page);
+                model.setViewName("beauty");
+            } else {
+                //将Page对象结合数据转换成Page页面
+                model.setViewName("redirect:output.action?pid=" + isExPage.getId());
+            }
         } else {
             model.setViewName("404");
         }
         return model;
+    }
+
+
+    /**
+     * 进行创建页面的操作
+     *
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "create_p.action")
+    public ModelAndView createPage(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
+        String page = RequestUtil.getString(request, "page", null);
+        long tid = RequestUtil.getLong(request, "tid", 0);
+        if (!Strings.isNullOrEmpty(page) && tid > 0) {
+            String pageUrl = CONST.REDIRECT + page;
+            //创建PAGE对象
+            Page createPage = new Page();
+            createPage.setCreatetime(new Date());
+            createPage.setStatus(1);
+            createPage.setTid(tid);
+            createPage.setUrl(pageUrl.toLowerCase());
+            this.pageService.savePage(createPage);
+        }
+        model.setViewName("redirect:" + CONST.REDIRECT + page);
+        return model;
+    }
+
+
+    /**
+     * 输出模板信息
+     *
+     * @param request
+     * @param response
+     */
+    @RequestMapping(value = "output.action")
+    public void output(HttpServletRequest request, HttpServletResponse response) {
+        ResponseUtil.writeResult(response, "<html><body>ssss</body></html>", "UTF-8");
     }
 }

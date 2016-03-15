@@ -32,4 +32,9 @@ public class CONST {
      * 登陆标识
      */
     public static String LOGIN_FLAG = "LOGIN_FLAG";
+
+    /**
+     * 跳转地址
+     */
+    public static String REDIRECT="redirect.action?page=";
 }

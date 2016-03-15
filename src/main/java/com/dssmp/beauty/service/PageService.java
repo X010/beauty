@@ -1,5 +1,7 @@
 package com.dssmp.beauty.service;
 
+import com.dssmp.beauty.model.Page;
+
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -18,4 +20,19 @@ package com.dssmp.beauty.service;
  * limitations under the License.
  */
 public interface PageService {
+
+    /**
+     * 保存Page对象
+     *
+     * @param page
+     */
+    public void savePage(Page page);
+
+    /**
+     * 根据URL获取Page对象
+     *
+     * @param url
+     * @return
+     */
+    public Page getPageByUrl(String url);
 }

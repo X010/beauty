@@ -39,6 +39,11 @@ public class TemplateServceImpl implements TemplateService {
     }
 
     @Override
+    public List<Template> getAllSimpleTemplate() {
+        return this.templateDao.getAllSimpleTemplate();
+    }
+
+    @Override
     public void saveTemplate(Template template) {
         Preconditions.checkNotNull(template);
 

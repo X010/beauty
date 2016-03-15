@@ -32,6 +32,14 @@ public interface TemplateService {
     public List<Template> getAllTemplate();
 
     /**
+     * 获取简单的模板字段
+     *
+     * @return
+     */
+    public List<Template> getAllSimpleTemplate();
+
+
+    /**
      * 保存模板
      *
      * @param template

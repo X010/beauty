@@ -1,5 +1,7 @@
 package com.dssmp.beauty.model;
 
+import java.util.Date;
+
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -19,4 +21,68 @@ package com.dssmp.beauty.model;
  * 具体页面
  */
 public class Page {
+    /**
+     * ID
+     */
+    private long id;
+
+    /**
+     * 地址
+     */
+    private String url;
+
+    /**
+     * 创建时间
+     */
+    private Date createtime;
+
+    /**
+     * 状态
+     */
+    private int status;
+
+    /**
+     * 模板ID
+     */
+    private long tid;
+
+    public long getTid() {
+        return tid;
+    }
+
+    public void setTid(long tid) {
+        this.tid = tid;
+    }
+
+    public Date getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(Date createtime) {
+        this.createtime = createtime;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 }

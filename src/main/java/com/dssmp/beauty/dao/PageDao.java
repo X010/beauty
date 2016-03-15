@@ -1,5 +1,10 @@
 package com.dssmp.beauty.dao;
 
+import com.dssmp.beauty.model.Page;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -18,4 +23,22 @@ package com.dssmp.beauty.dao;
  * limitations under the License.
  */
 public interface PageDao {
+
+    /**
+     * 保存页面信息
+     *
+     * @param page
+     */
+    @Insert("insert into beauty_page(url,createtime,status,tid)values(#{url},#{createtime},#{status},#{tid})")
+    public void insertPage(Page page);
+
+
+    /**
+     * 根据URL查询页面信息
+     *
+     * @param url
+     * @return
+     */
+    @Select("select * from beauty_page where url=#{url}")
+    public Page findPageByUrl(@Param("url") String url);
 }

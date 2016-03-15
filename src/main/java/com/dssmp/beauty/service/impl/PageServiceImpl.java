@@ -1,7 +1,9 @@
 package com.dssmp.beauty.service.impl;
 
 import com.dssmp.beauty.dao.PageDao;
+import com.dssmp.beauty.model.Page;
 import com.dssmp.beauty.service.PageService;
+import com.google.common.base.Preconditions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,4 +31,19 @@ public class PageServiceImpl implements PageService {
     private PageDao pageDao;
 
 
+    @Override
+    public void savePage(Page page) {
+
+        Preconditions.checkNotNull(page);
+        if (page.getId() > 0) {
+
+        } else {
+            this.pageDao.insertPage(page);
+        }
+    }
+
+    @Override
+    public Page getPageByUrl(String url) {
+        return this.pageDao.findPageByUrl(url);
+    }
 }

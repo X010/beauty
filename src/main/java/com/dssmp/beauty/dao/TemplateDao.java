@@ -46,6 +46,13 @@ public interface TemplateDao {
     public List<Template> getAllTemplate();
 
     /**
+     * 获取简单的字段
+     * @return
+     */
+    @Select("select id,title,description,createtime from beauty_template")
+    public List<Template> getAllSimpleTemplate();
+
+    /**
      * 删除模板
      *
      * @param id
