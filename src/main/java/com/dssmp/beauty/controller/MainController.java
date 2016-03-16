@@ -496,6 +496,19 @@ public class MainController {
         return model;
     }
 
+    /**
+     * 修改页面
+     *
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "edit_p.action")
+    public ModelAndView editPage(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
+        return null;
+    }
+
 
     /**
      * 输出模板信息

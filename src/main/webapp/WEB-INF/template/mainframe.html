@@ -63,6 +63,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
             //tab栏定位
             $(".tabs-header").css({"position": "fixed"});
+
         });
 
         //退出登录确认对话框
@@ -116,7 +117,7 @@ desired effect
 |---------------------------------------------------------|
 -->
 <body class="hold-transition skin-purple sidebar-mini" style="overflow-y: hidden;">
-<div class="wrapper">
+<div class="wrapper" style="background:#ffffff;">
 
     <!-- Main Header -->
     <header class="main-header">
@@ -157,10 +158,19 @@ desired effect
     </aside>
 
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+    <div class="content-wrapper" style="background:#ffffff;">
         <!--tab动态添加-->
-        <div id="mainTabs" class="maintabs easyui-tabs">
-            <div title="控制台"></div>
+        <div id="mainTabs" style="background:#ffffff;" class="maintabs easyui-tabs">
+            <div class="box" title="控制台">
+                <div class="box-header">
+                    <h3 class="box-title">个人中心</h3>
+                </div>
+                <div class="box-body table-responsive no-padding">
+                    <div class="box-footer">
+                        <button class="btn btn-info pull-right">编缉</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <!-- /.content-wrapper -->
