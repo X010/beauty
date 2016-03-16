@@ -3,8 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <title>组件选择</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/ionicons.min.css">
+    <link rel="stylesheet" href="/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="/css/skins/skin-purple.min.css">
+    <link rel="stylesheet" href="/css/admin.css">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/jquery.easyui.min.1.2.2.js"></script>
+    <script src="/js/admintle.min.js"></script>
 </head>
 <body>
+<div class="content">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            组件编辑
+        </h1>
+        <ol class="breadcrumb">
+            <li class="active"></li>
+        </ol>
+    </section>
 
+    <section class="content">
+        <div class="row">
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Edit Compent<span style="font-size: 12px;">  *修改组件的内容,尽量不让JavaScript变量重名</span></h3>
+                </div>
+                <form method="post" action="compent_s.action" class="form-horizontal">
+                    <div class="box-body">
+
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer">
+                        <a href="javascript:window.history.go(-1);" class="btn btn-default">返回</a>
+                        <button type="submit" class="btn btn-info pull-right">保存</button>
+                    </div>
+                    <!-- /.box-footer -->
+                </form>
+            </div>
+        </div>
+    </section>
+</div>
 </body>
 </html>
