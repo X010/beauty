@@ -407,12 +407,17 @@ public class MainController {
             String common_ref = RequestUtil.getString(request, "common_ref", "");
             String page_header = RequestUtil.getString(request, "page_header", "");
             String page_footer = RequestUtil.getString(request, "page_footer", "");
+            long id = RequestUtil.getLong(request, "id", 0);
             TemplateEm templateEm = new TemplateEm();
             templateEm.setCommon_ref(common_ref);
             templateEm.setPage_header(page_header);
             templateEm.setPage_footer(page_footer);
-
-
+            templateEm.setId(id);
+            this.templateEmService.saveTemplateEm(templateEm);
+        }
+        TemplateEm templateEm = this.templateEmService.getTemplateEm();
+        if (templateEm != null) {
+            model.addObject("em", templateEm);
         }
         model.setViewName("template_em");
         return model;
@@ -431,7 +436,6 @@ public class MainController {
         model.setViewName("404");
         return model;
     }
-
 
     /**
      * 页面跳转生成页面

@@ -7,6 +7,8 @@ import com.google.common.base.Preconditions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -36,9 +38,11 @@ public class TeamplateEmServiceImpl implements TemplateEmService {
         Preconditions.checkNotNull(templateEm);
         if (templateEm.getId() > 0) {
             //修改
+            templateEm.setUpdatetime(new Date());
             this.templateEmDao.updateTemplateEm(templateEm);
         } else {
             //添加
+            templateEm.setCreatetime(new Date());
             this.templateEmDao.insertTemplateEm(templateEm);
         }
     }
