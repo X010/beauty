@@ -51,6 +51,9 @@ public class MainController {
     private TemplateService templateService;
 
     @Autowired
+    private TemplateEmService templateEmService;
+
+    @Autowired
     private RoleGroupService roleGroupService;
 
 
@@ -400,7 +403,17 @@ public class MainController {
      */
     @RequestMapping(value = "template_em.action")
     public ModelAndView template_em(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
+        if (CONST.HTTP_METHOD_POST.equals(request.getMethod())) {
+            String common_ref = RequestUtil.getString(request, "common_ref", "");
+            String page_header = RequestUtil.getString(request, "page_header", "");
+            String page_footer = RequestUtil.getString(request, "page_footer", "");
+            TemplateEm templateEm = new TemplateEm();
+            templateEm.setCommon_ref(common_ref);
+            templateEm.setPage_header(page_header);
+            templateEm.setPage_footer(page_footer);
 
+
+        }
         model.setViewName("template_em");
         return model;
     }
