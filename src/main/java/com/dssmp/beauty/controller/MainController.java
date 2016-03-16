@@ -391,6 +391,21 @@ public class MainController {
     }
 
     /**
+     * 抽像的父级模板定义
+     *
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "template_em.action")
+    public ModelAndView template_em(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
+
+        model.setViewName("template_em");
+        return model;
+    }
+
+    /**
      * 404页面
      *
      * @param request
