@@ -52,4 +52,13 @@ public interface TemplateService {
      * @param id
      */
     public void deleteTemplate(long id);
+
+
+    /**
+     * 根据ID获取模板信息
+     *
+     * @param id
+     * @return
+     */
+    public Template findTemplateById(long id);
 }

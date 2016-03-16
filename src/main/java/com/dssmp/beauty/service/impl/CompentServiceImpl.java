@@ -1,11 +1,10 @@
 package com.dssmp.beauty.service.impl;
 
-import com.dssmp.beauty.dao.PageDao;
-import com.dssmp.beauty.model.Page;
-import com.dssmp.beauty.service.PageService;
-import com.google.common.base.Preconditions;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.dssmp.beauty.model.Compent;
+import com.dssmp.beauty.service.CompentService;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -25,31 +24,10 @@ import org.springframework.stereotype.Service;
  * limitations under the License.
  */
 @Service
-public class PageServiceImpl implements PageService {
-
-    @Autowired
-    private PageDao pageDao;
-
+public class CompentServiceImpl implements CompentService {
 
     @Override
-    public void savePage(Page page) {
-
-        Preconditions.checkNotNull(page);
-        if (page.getId() > 0) {
-
-        } else {
-            this.pageDao.insertPage(page);
-        }
-    }
-
-    @Override
-    public Page getPageByUrl(String url) {
-        return this.pageDao.findPageByUrl(url);
-    }
-
-    @Override
-    public Page getPageById(long id) {
-        Preconditions.checkArgument(id > 0);
-        return this.pageDao.findPageById(id);
+    public List<Compent> getCompentByPageId(long id) {
+        return null;
     }
 }

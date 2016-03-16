@@ -36,5 +36,20 @@ public class CONST {
     /**
      * 跳转地址
      */
-    public static String REDIRECT="redirect.action?page=";
+    public static String REDIRECT = "redirect.action?page=";
+
+    /**
+     * 组件占位符
+     */
+    public static String COMPENT_PH = "#{COMPENT_PH}";
+
+    /**
+     * 可编辑替换占位符
+     */
+    public static String EDITPAGE = "#{EDITPAGE}";
+
+    /**
+     * 可编辑的页面地址
+     */
+    public static String EDITPAGEURL = "compent_s.action?pid=";
 }

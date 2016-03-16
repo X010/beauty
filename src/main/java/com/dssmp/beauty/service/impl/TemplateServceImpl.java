@@ -59,4 +59,10 @@ public class TemplateServceImpl implements TemplateService {
         Preconditions.checkArgument(id > 0);
         this.templateDao.deleteTemplate(id);
     }
+
+    @Override
+    public Template findTemplateById(long id) {
+        Preconditions.checkArgument(id > 0);
+        return this.templateDao.findTemplateById(id);
+    }
 }

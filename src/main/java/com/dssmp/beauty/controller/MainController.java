@@ -2,10 +2,7 @@ package com.dssmp.beauty.controller;
 
 import com.dssmp.beauty.model.*;
 import com.dssmp.beauty.service.*;
-import com.dssmp.beauty.util.CONST;
-import com.dssmp.beauty.util.JsonParser;
-import com.dssmp.beauty.util.RequestUtil;
-import com.dssmp.beauty.util.ResponseUtil;
+import com.dssmp.beauty.util.*;
 import com.google.common.base.Joiner;
 import com.google.common.base.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -55,6 +53,9 @@ public class MainController {
 
     @Autowired
     private RoleGroupService roleGroupService;
+
+    @Autowired
+    private CompentService compentService;
 
 
     /**
@@ -469,7 +470,6 @@ public class MainController {
         return model;
     }
 
-
     /**
      * 进行创建页面的操作
      *
@@ -509,6 +509,19 @@ public class MainController {
         return null;
     }
 
+    /**
+     * 组件选择
+     *
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "compent_s.action")
+    public ModelAndView compent_s(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
+        model.setViewName("compent_s");
+        return model;
+    }
 
     /**
      * 输出模板信息
@@ -518,6 +531,29 @@ public class MainController {
      */
     @RequestMapping(value = "output.action")
     public void output(HttpServletRequest request, HttpServletResponse response) {
-        ResponseUtil.writeResult(response, "<html><body>ssss</body></html>", "UTF-8");
+        long pid = RequestUtil.getLong(request, "pid", 0);
+        String res = null;
+        if (pid > 0) {
+            Page page = this.pageService.getPageById(pid);
+            if (page != null) {
+                //PAGE不为空则开始生成页面信息
+                TemplateEm templateEm = this.templateEmService.getTemplateEm();
+                Template template = this.templateService.findTemplateById(page.getTid());
+                if (template != null) {
+                    //生成内容
+                    List<Compent> compents = this.compentService.getCompentByPageId(page.getId());
+                    res = TemplateUntil.createPageContent(page, template, templateEm, compents);
+                }
+            }
+        }
+        if (!Strings.isNullOrEmpty(res)) {
+            ResponseUtil.writeResult(response, res, "UTF-8");
+        } else {
+            try {
+                response.sendRedirect("404.action");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

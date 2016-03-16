@@ -35,4 +35,12 @@ public interface PageService {
      * @return
      */
     public Page getPageByUrl(String url);
+
+    /**
+     * 根据ID获取页面信息
+     *
+     * @param id
+     * @return
+     */
+    public Page getPageById(long id);
 }

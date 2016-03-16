@@ -1,9 +1,4 @@
-package com.dssmp.beauty.dao;
-
-import com.dssmp.beauty.model.Page;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+package com.dssmp.beauty.model;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -21,33 +16,14 @@ import org.apache.ibatis.annotations.Select;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ * 页面组件
  */
-public interface PageDao {
+public class Compent {
 
     /**
-     * 保存页面信息
-     *
-     * @param page
+     * 页面组件ID
      */
-    @Insert("insert into beauty_page(url,createtime,status,tid)values(#{url},#{createtime},#{status},#{tid})")
-    public void insertPage(Page page);
+    private long id;
 
 
-    /**
-     * 根据URL查询页面信息
-     *
-     * @param url
-     * @return
-     */
-    @Select("select * from beauty_page where url=#{url}")
-    public Page findPageByUrl(@Param("url") String url);
-
-    /**
-     * 根据ID获取PAGE对象
-     *
-     * @param id
-     * @return
-     */
-    @Select("select * from beauty_page where id=#{id}")
-    public Page findPageById(@Param("id") long id);
 }

@@ -64,7 +64,9 @@
                                     <td>${item.title}</td>
                                     <td>${item.createtime?string("yyyy-MM-dd HH:mm:ss")}</td>
                                     <td>${item.tagNum}</td>
-                                    <td><a class="btn btn-danger btn-xs" href="template_d.action?id=${item.id}">delete</a></td>
+                                    <td><a class="btn btn-danger btn-xs" href="template_d.action?id=${item.id}">delete</a>
+                                        &nbsp;&nbsp;<a class="btn btn-bitbucket btn-xs" href="#">edit</a>
+                                    </td>
                                 </tr>
                                 </#list>
                             </#if>

@@ -47,6 +47,7 @@ public interface TemplateDao {
 
     /**
      * 获取简单的字段
+     *
      * @return
      */
     @Select("select id,title,description,createtime from beauty_template")
@@ -59,4 +60,13 @@ public interface TemplateDao {
      */
     @Delete("delete from beauty_template where id=#{id}")
     public void deleteTemplate(@Param("id") long id);
+
+    /**
+     * 根据ID获取模板信息
+     *
+     * @param id
+     * @return
+     */
+    @Select("select * from beauty_template where id=#{id}")
+    public Template findTemplateById(@Param("id") long id);
 }
