@@ -29,7 +29,7 @@ public class SshInterceptor extends HandlerInterceptorAdapter {
                     User cmsUser = (User) user;
                     return true;
                 }
-                response.sendRedirect("/login.action");
+                response.sendRedirect("login.action");
             }
         }
         return false;

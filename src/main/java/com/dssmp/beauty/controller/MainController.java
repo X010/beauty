@@ -64,11 +64,11 @@ public class MainController {
      *
      * @param request
      * @param response
-     * @param model
      * @return
      */
     @RequestMapping(value = "login.action")
-    public ModelAndView login(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
+    public ModelAndView login(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView model = new ModelAndView();
         if (CONST.HTTP_METHOD_POST.equals(request.getMethod())) {
             String username = RequestUtil.getString(request, "username", null);
             String password = RequestUtil.getString(request, "password", null);
@@ -85,7 +85,6 @@ public class MainController {
         return model;
     }
 
-
     /**
      * 登出
      *
@@ -95,23 +94,23 @@ public class MainController {
      * @return
      */
     @RequestMapping(value = "loginout.action")
-    public ModelAndView loginout(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
+    public ModelAndView loginout(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView model = new ModelAndView();
         request.getSession().removeAttribute(CONST.LOGIN_FLAG);
         model.setViewName("login");
         return model;
     }
-
 
     /**
      * 主框架
      *
      * @param request
      * @param response
-     * @param model
      * @return
      */
     @RequestMapping(value = "mainframe.action")
-    public ModelAndView main(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
+    public ModelAndView main(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView model = new ModelAndView();
         String menu = "[]";
         List<ParentMenu> parentMenuList = this.menuService.getLeftMenu();
         if (parentMenuList != null) {
@@ -122,17 +121,16 @@ public class MainController {
         return model;
     }
 
-
     /**
      * 菜单管理
      *
      * @param request
      * @param response
-     * @param model
      * @return
      */
     @RequestMapping(value = "menu_m.action")
-    public ModelAndView menu_m(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
+    public ModelAndView menu_m(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView model = new ModelAndView();
         List<ParentMenu> menus = this.menuService.getLeftMenu();
         if (menus != null) {
             model.addObject("menus", menus);
@@ -146,11 +144,11 @@ public class MainController {
      *
      * @param request
      * @param response
-     * @param model
      * @return
      */
     @RequestMapping(value = "menu_a.action")
-    public ModelAndView menu_a(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
+    public ModelAndView menu_a(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView model = new ModelAndView();
         if (CONST.HTTP_METHOD_POST.equals(request.getMethod())) {
             String menuname = RequestUtil.getString(request, "name", null);
             String icons = RequestUtil.getString(request, "icons", null);
@@ -197,11 +195,11 @@ public class MainController {
      *
      * @param request
      * @param response
-     * @param model
      * @return
      */
     @RequestMapping(value = "menu_d.action")
-    public ModelAndView menu_d(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
+    public ModelAndView menu_d(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView model = new ModelAndView();
         long mid = RequestUtil.getLong(request, "mid", 0);
         if (mid > 0) {
             this.menuService.deleteMenus(mid);
@@ -216,11 +214,11 @@ public class MainController {
      *
      * @param request
      * @param response
-     * @param model
      * @return
      */
     @RequestMapping(value = "user_m.action")
-    public ModelAndView user_m(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
+    public ModelAndView user_m(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView model = new ModelAndView();
         if (CONST.HTTP_METHOD_POST.equals(request.getMethod())) {
             String username = RequestUtil.getString(request, "username", null);
             String password = RequestUtil.getString(request, "password", null);
@@ -246,11 +244,11 @@ public class MainController {
      *
      * @param request
      * @param response
-     * @param model
      * @return
      */
     @RequestMapping(value = "user_d.action")
-    public ModelAndView user_d(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
+    public ModelAndView user_d(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView model = new ModelAndView();
         long uid = RequestUtil.getLong(request, "uid", 0);
         if (uid > 0) {
             this.userService.deleteUser(uid);
@@ -264,11 +262,11 @@ public class MainController {
      *
      * @param request
      * @param response
-     * @param model
      * @return
      */
     @RequestMapping(value = "role_a.action")
-    public ModelAndView role_a(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
+    public ModelAndView role_a(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView model = new ModelAndView();
         if (CONST.HTTP_METHOD_POST.equals(request.getMethod())) {
             String name = RequestUtil.getString(request, "name", null);
             String[] role_items = request.getParameterValues("role_item");
@@ -295,11 +293,11 @@ public class MainController {
      *
      * @param request
      * @param response
-     * @param model
      * @return
      */
     @RequestMapping(value = "role_m.action")
-    public ModelAndView role_m(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
+    public ModelAndView role_m(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView model = new ModelAndView();
         List<RoleGroup> roleGroups = this.roleGroupService.getAllRoleGroup();
         if (roleGroups != null) {
             model.addObject("roles", roleGroups);
@@ -313,12 +311,19 @@ public class MainController {
      *
      * @param request
      * @param response
-     * @param model
      * @return
      */
     @RequestMapping(value = "role_m_u.action")
-    public ModelAndView role_m_u(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
-
+    public ModelAndView role_m_u(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView model = new ModelAndView();
+        User user = getCurrentUser(request);
+        if (user != null) {
+            model.addObject("user", user);
+        }
+        List<RoleGroup> roleGroups = this.roleGroupService.getAllRoleGroup();
+        if (roleGroups != null) {
+            model.addObject("roles", roleGroups);
+        }
         model.setViewName("role_m_u");
         return model;
     }
@@ -328,28 +333,27 @@ public class MainController {
      *
      * @param request
      * @param response
-     * @param model
      * @return
      */
     @RequestMapping(value = "role_d.action")
-    public ModelAndView role_d(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
+    public ModelAndView role_d(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView model = new ModelAndView();
         long id = RequestUtil.getLong(request, "id", 0);
         this.roleGroupService.deleteRoleGroup(id);
         model.setViewName("redirect:role_m.action");
         return model;
     }
 
-
     /**
      * 模板列表
      *
      * @param request
      * @param response
-     * @param model
      * @return
      */
     @RequestMapping(value = "template_m.action")
-    public ModelAndView template_m(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
+    public ModelAndView template_m(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView model = new ModelAndView();
         List<Template> templates = this.templateService.getAllTemplate();
         if (templates != null) {
             model.addObject("templates", templates);
@@ -363,11 +367,11 @@ public class MainController {
      *
      * @param request
      * @param response
-     * @param model
      * @return
      */
     @RequestMapping(value = "template_d.action")
-    public ModelAndView template_d(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
+    public ModelAndView template_d(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView model = new ModelAndView();
         long id = RequestUtil.getLong(request, "id", 0);
         if (id > 0) {
             this.templateService.deleteTemplate(id);
@@ -381,11 +385,11 @@ public class MainController {
      *
      * @param request
      * @param response
-     * @param model
      * @return
      */
     @RequestMapping(value = "template_a.action")
-    public ModelAndView template_a(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
+    public ModelAndView template_a(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView model = new ModelAndView();
         if (CONST.HTTP_METHOD_POST.equals(request.getMethod())) {
             String name = RequestUtil.getString(request, "name", null);
             String description = RequestUtil.getString(request, "description", null);
@@ -420,11 +424,11 @@ public class MainController {
      *
      * @param request
      * @param response
-     * @param model
      * @return
      */
     @RequestMapping(value = "template_em.action")
-    public ModelAndView template_em(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
+    public ModelAndView template_em(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView model = new ModelAndView();
         if (CONST.HTTP_METHOD_POST.equals(request.getMethod())) {
             String common_ref = RequestUtil.getString(request, "common_ref", "");
             String page_header = RequestUtil.getString(request, "page_header", "");
@@ -450,11 +454,11 @@ public class MainController {
      *
      * @param request
      * @param response
-     * @param model
      * @return
      */
     @RequestMapping(value = "404.action")
-    public ModelAndView p404(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
+    public ModelAndView p404(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView model = new ModelAndView();
         model.setViewName("404");
         return model;
     }
@@ -464,11 +468,11 @@ public class MainController {
      *
      * @param request
      * @param response
-     * @param model
      * @return
      */
     @RequestMapping(value = "redirect.action")
-    public ModelAndView redirectPage(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
+    public ModelAndView redirectPage(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView model = new ModelAndView();
         String page = RequestUtil.getString(request, "page", null);
         if (!Strings.isNullOrEmpty(page)) {
             //判断PAGE对象是否存在,如果存在则进行模板渲染操作
@@ -496,11 +500,11 @@ public class MainController {
      *
      * @param request
      * @param response
-     * @param model
      * @return
      */
     @RequestMapping(value = "create_p.action")
-    public ModelAndView createPage(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
+    public ModelAndView createPage(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView model = new ModelAndView();
         String page = RequestUtil.getString(request, "page", null);
         long tid = RequestUtil.getLong(request, "tid", 0);
         if (!Strings.isNullOrEmpty(page) && tid > 0) {
@@ -542,11 +546,11 @@ public class MainController {
      *
      * @param request
      * @param response
-     * @param model
      * @return
      */
     @RequestMapping(value = "edit_p.action")
-    public ModelAndView editPage(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
+    public ModelAndView editPage(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView model = new ModelAndView();
         return null;
     }
 
@@ -555,11 +559,11 @@ public class MainController {
      *
      * @param request
      * @param response
-     * @param model
      * @return
      */
     @RequestMapping(value = "compent_s.action")
-    public ModelAndView compent_s(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
+    public ModelAndView compent_s(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView model = new ModelAndView();
         long pid = RequestUtil.getLong(request, "pid", 0);
         Page page = this.pageService.getPageById(pid);
         List<Compent> compents = this.compentService.getCompentByPageId(pid);
@@ -625,5 +629,16 @@ public class MainController {
                 e.printStackTrace();
             }
         }
+    }
+
+    /**
+     * 读取当前用户
+     *
+     * @param request
+     * @return
+     */
+    private User getCurrentUser(HttpServletRequest request) {
+        Object obj = request.getSession().getAttribute(CONST.LOGIN_FLAG);
+        return (User) obj;
     }
 }

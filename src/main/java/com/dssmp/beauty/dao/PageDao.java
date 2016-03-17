@@ -30,7 +30,7 @@ public interface PageDao {
      *
      * @param page
      */
-    @Insert("insert into beauty_page(url,createtime,status,tid)values(#{url},#{createtime},#{status},#{tid})")
+    @Insert("insert into beauty_page(url,createtime,status,tid,rgids)values(#{url},#{createtime},#{status},#{tid},#{rgids})")
     public void insertPage(Page page);
 
 
@@ -54,6 +54,7 @@ public interface PageDao {
 
     /**
      * 根据ID删除Page对象
+     *
      * @param id
      */
     @Delete("delete from beauty_page where id=#{id}")

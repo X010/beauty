@@ -3,8 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <title>用户权限组管理</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/ionicons.min.css">
+    <link rel="stylesheet" href="/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="/css/skins/skin-purple.min.css">
+    <link rel="stylesheet" href="/css/admin.css">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/jquery.easyui.min.1.2.2.js"></script>
+    <script src="/js/admintle.min.js"></script>
 </head>
 <body>
+<div class="content">
+    <section class="content-header">
+        <h1>
+            用户权限组管理
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i>用户</a></li>
+            <li class="active">权限</li>
+        </ol>
+    </section>
 
+    <section class="content">
+        <div class="row">
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">User Role Group <span style="font-size: 12px;">  *钩选用户需要的权限组</span></h3>
+                </div>
+                <div class="box-body">
+                    <form method="post" action="role_m_u.action" class="form-horizontal">
+                        <#if user??>
+                            <input type="hidden" id="uid" name="uid" value="${user.id}"/>
+                            <div class="form-group">
+                                <label for="name" class="col-sm-2 control-label">当前用户</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" disabled id="name" value="${user.username}" name="name" placeholder="菜单名称">
+                                </div>
+                            </div>
+                        </#if>
+                        <#if roles??>
+                            <div class="form-group">
+                                <label for="roles" class="col-sm-2 control-label">权限组</label>
+                                <div class="col-sm-10">
+                                    <#list roles as item>
+                                        <input id="roles" name="roles" type="checkbox" value="${item.id}"/>&nbsp;&nbsp;${item.roleGroupName} &nbsp;&nbsp;&nbsp;&nbsp;
+                                    </#list>
+                                </div>
+                            </div>
+                        </#if>
+                    </form>
+                </div>
+                <div class="box-footer">
+                    <button type="button" onclick="window.history.go(-1);" class="btn btn-default">返回</button>
+                    <button type="submit" class="btn btn-info pull-right">保存</button>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
 </body>
 </html>
