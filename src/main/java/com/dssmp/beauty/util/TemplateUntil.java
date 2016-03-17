@@ -38,7 +38,7 @@ public class TemplateUntil {
     private static String BODY_END = "</body>";
     private static String AB_DIV_BEGIN = "<div class=\"content\">";
     private static String DIV_END = "</div>";
-    private static String PAGE_CONTENT_HEADER_BEGIN = "<section class=\"content-header\">";
+    private static String PAGE_CONTENT_HEADER_BEGIN = "<section class=\"content-header\" style=\"height:80px;\">";
     private static String SECTION_END = "</section>";
     private static String PAGE_CONTENT_CONTENT_BEIGN = "<section class=\"content\">";
 
@@ -83,9 +83,22 @@ public class TemplateUntil {
             pageContent.append(PAGE_CONTENT_CONTENT_BEIGN);
             //些处添加内容信息
             //些处需要对Content内容进行处理
-            pageContent.append(template.getContent());
-
-
+            String cont = template.getContent();
+            if (template.getTagNum() > 0) {
+                //替换Tag内容
+                if (compentList != null) {
+                    for (Compent compent : compentList) {
+                        if (cont.indexOf(compent.getFlag()) > 0) {
+                            if (!Strings.isNullOrEmpty(compent.getContent())) {
+                                cont = cont.replace(compent.getFlag(), compent.getContent());
+                            } else {
+                                cont = cont.replace(cont, "");
+                            }
+                        }
+                    }
+                }
+            }
+            pageContent.append(cont);
             pageContent.append(SECTION_END);
             pageContent.append(DIV_END);
             pageContent.append(BODY_END);

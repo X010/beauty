@@ -1,6 +1,10 @@
-package com.dssmp.beauty.service;
+package com.dssmp.beauty.dao;
 
 import com.dssmp.beauty.model.Compent;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -21,28 +25,32 @@ import java.util.List;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public interface CompentService {
-
+public interface CompentDao {
 
     /**
      * 根据页面ID获取组件列表
      *
-     * @param id
+     * @param pid
      * @return
      */
-    public List<Compent> getCompentByPageId(long id);
+    @Select("select * from beauty_compent where pid=#{pid}")
+    public List<Compent> findCompentsByPid(@Param("pid") long pid);
+
 
     /**
-     * 保存组件
+     * 添加组件
      *
-     * @param compents
+     * @param compent
      */
-    public void saveCompent(List<Compent> compents);
+    @Insert("insert into beauty_compent(pid,flag,content,createtime,updatetime)values(#{pid},#{flag},#{content},#{createtime},#{updatetime})")
+    public void insertCompent(Compent compent);
+
 
     /**
      * 更新数据库中的内容
      *
      * @param compent
      */
+    @Update("update beauty_compent set content=#{content} where id=#{id}")
     public void updateCompent(Compent compent);
 }

@@ -5,6 +5,7 @@ import com.dssmp.beauty.service.*;
 import com.dssmp.beauty.util.*;
 import com.google.common.base.Joiner;
 import com.google.common.base.Strings;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -386,7 +387,11 @@ public class MainController {
                 template.setTitle(name);
 
                 //做模板分析
-
+                List<String> tags = TemplateAnlayserUntil.getTemplateTag(content);
+                if (tags != null && tags.size() > 0) {
+                    template.setTagNum(tags.size());
+                    template.setTagMap(Joiner.on(",").join(tags));
+                }
                 this.templateService.saveTemplate(template);
             }
         }
@@ -485,12 +490,32 @@ public class MainController {
         if (!Strings.isNullOrEmpty(page) && tid > 0) {
             String pageUrl = CONST.REDIRECT + page;
             //创建PAGE对象
-            Page createPage = new Page();
-            createPage.setCreatetime(new Date());
-            createPage.setStatus(1);
-            createPage.setTid(tid);
-            createPage.setUrl(pageUrl.toLowerCase());
-            this.pageService.savePage(createPage);
+            Template template = this.templateService.findTemplateById(tid);
+            if (template != null) {
+                Page createPage = new Page();
+                createPage.setCreatetime(new Date());
+                createPage.setStatus(1);
+                createPage.setTid(tid);
+                createPage.setUrl(pageUrl.toLowerCase());
+                //分析使用模板的标签位
+                long pid = this.pageService.savePage(createPage);
+                //将组件生成到组件表中
+                if (!Strings.isNullOrEmpty(template.getTagMap()) && template.getTagNum() > 0) {
+                    String[] tags = template.getTagMap().split("\\,");
+                    List<Compent> compents = Lists.newArrayList();
+                    for (String tag : tags) {
+                        Compent compent = new Compent();
+                        compent.setFlag(tag);
+                        compent.setCreatetime(new Date());
+                        compent.setContent("");
+                        compent.setPid(pid);
+                        compents.add(compent);
+                    }
+                    //保存组件
+                    this.compentService.saveCompent(compents);
+                }
+            }
+
         }
         model.setViewName("redirect:" + CONST.REDIRECT + page);
         return model;
@@ -519,6 +544,35 @@ public class MainController {
      */
     @RequestMapping(value = "compent_s.action")
     public ModelAndView compent_s(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
+        long pid = RequestUtil.getLong(request, "pid", 0);
+        Page page = this.pageService.getPageById(pid);
+        List<Compent> compents = this.compentService.getCompentByPageId(pid);
+        if (CONST.HTTP_METHOD_POST.equals(request.getMethod()) && page != null) {
+            //更新数据
+            //获取CompentList,并读取POST请求数据,然后更新数据,最后返回到页面
+            if (compents != null) {
+                compents.stream().forEach(compent -> {
+                    //获取POST上面的数据
+                    String content = RequestUtil.getString(request, "compent_" + compent.getId(), "");
+                    if (!Strings.isNullOrEmpty(content)) {
+                        compent.setContent(content);
+                        //更新数据库中的Compent组件内容
+                        this.compentService.updateCompent(compent);
+                    }
+                });
+            }
+            //转跳到页面
+            model.setViewName("redirect:" + page.getUrl());
+            return model;
+        } else {
+            if (pid > 0) {
+                model.addObject("pid", pid);
+            }
+            //根据页面内容生成可编辑组件内容框
+            if (compents != null) {
+                model.addObject("compents", compents);
+            }
+        }
         model.setViewName("compent_s");
         return model;
     }

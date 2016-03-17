@@ -26,7 +26,7 @@ public interface PageService {
      *
      * @param page
      */
-    public void savePage(Page page);
+    public long  savePage(Page page);
 
     /**
      * 根据URL获取Page对象

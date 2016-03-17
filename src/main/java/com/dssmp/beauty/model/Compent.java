@@ -1,5 +1,7 @@
 package com.dssmp.beauty.model;
 
+import java.util.Date;
+
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -25,5 +27,89 @@ public class Compent {
      */
     private long id;
 
+    /**
+     * 页面ID
+     */
+    private long pid;
 
+    /**
+     * 页面上在的占位符
+     */
+    private String flag;
+
+    /**
+     * 内容
+     */
+    private String content;
+
+    /**
+     * 创建时间
+     */
+    private Date createtime;
+
+    /**
+     * 更新时间
+     */
+    private Date updatetime;
+
+    /**
+     * HTML标签
+     */
+    private String htmlTag;
+
+    public String getHtmlTag() {
+        return htmlTag;
+    }
+
+    public void setHtmlTag(String htmlTag) {
+        this.htmlTag = htmlTag;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getPid() {
+        return pid;
+    }
+
+    public void setPid(long pid) {
+        this.pid = pid;
+    }
+
+    public String getFlag() {
+        return flag;
+    }
+
+    public void setFlag(String flag) {
+        this.flag = flag;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Date getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(Date createtime) {
+        this.createtime = createtime;
+    }
+
+    public Date getUpdatetime() {
+        return updatetime;
+    }
+
+    public void setUpdatetime(Date updatetime) {
+        this.updatetime = updatetime;
+    }
 }

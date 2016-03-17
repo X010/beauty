@@ -1,4 +1,9 @@
-package com.dssmp.beauty.util;
+package com.dssmp.beauty;
+
+import com.dssmp.beauty.util.TemplateAnlayserUntil;
+import org.junit.Test;
+
+import java.util.List;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -17,44 +22,15 @@ package com.dssmp.beauty.util;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public class CONST {
-    /**
-     * GET方式
-     */
-    public static String HTTP_METHOD_GET = "GET";
+public class TemplateAnlayserUnitTest {
 
-    /**
-     * POST
-     */
-    public static String HTTP_METHOD_POST = "POST";
 
-    /**
-     * 登陆标识
-     */
-    public static String LOGIN_FLAG = "LOGIN_FLAG";
-
-    /**
-     * 跳转地址
-     */
-    public static String REDIRECT = "redirect.action?page=";
-
-    /**
-     * 组件占位符
-     */
-    public static String COMPENT_PH = "#{COMPENT_PH}";
-
-    /**
-     * 正则表达式
-     */
-    public static String COMPENT_PH_PATTERN = "#\\{.*?\\}";
-
-    /**
-     * 可编辑替换占位符
-     */
-    public static String EDITPAGE = "#{EDITPAGE}";
-
-    /**
-     * 可编辑的页面地址
-     */
-    public static String EDITPAGEURL = "compent_s.action?pid=";
+    @Test
+    public void templateAnlayserUnitTest() {
+        String content = "dddddsddssd#{COMPENT_PH_1}dddddddd#{COMPENT_PH_2}";
+        List<String> tags = TemplateAnlayserUntil.getTemplateTag(content);
+        tags.stream().forEach(tag -> {
+            System.out.println(tag);
+        });
+    }
 }

@@ -32,14 +32,16 @@ public class PageServiceImpl implements PageService {
 
 
     @Override
-    public void savePage(Page page) {
+    public long savePage(Page page) {
 
         Preconditions.checkNotNull(page);
         if (page.getId() > 0) {
 
         } else {
             this.pageDao.insertPage(page);
+            page = this.pageDao.findPageByUrl(page.getUrl());
         }
+        return page.getId();
     }
 
     @Override

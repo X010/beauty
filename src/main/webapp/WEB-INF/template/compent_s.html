@@ -34,8 +34,18 @@
                     <h3 class="box-title">Edit Compent<span style="font-size: 12px;">  *修改组件的内容,尽量不让JavaScript变量重名</span></h3>
                 </div>
                 <form method="post" action="compent_s.action" class="form-horizontal">
+                    <input type="hidden" id="pid" name="pid" value="<#if pid??>${pid}</#if>"/>
                     <div class="box-body">
-
+                        <#if compents??>
+                            <#list compents as compent>
+                                <div class="form-group">
+                                    <label for="compent_${compent.id}" class="col-sm-2 control-label">${compent.flag}</label>
+                                    <div class="col-sm-10">
+                                        <textarea id="compent_${compent.id}" name="compent_${compent.id}" rows="5" cols="80">${compent.content}</textarea>
+                                    </div>
+                                </div>
+                            </#list>
+                        </#if>
                     </div>
                     <!-- /.box-body -->
                     <div class="box-footer">

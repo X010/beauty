@@ -1,5 +1,12 @@
 package com.dssmp.beauty.util;
 
+import com.google.common.base.Strings;
+import com.google.common.collect.Lists;
+
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -20,5 +27,23 @@ package com.dssmp.beauty.util;
  */
 public class TemplateAnlayserUntil {
 
-
+    /**
+     * 分析模板标签
+     *
+     * @param content
+     * @return
+     */
+    public static List<String> getTemplateTag(String content) {
+        List<String> tags = Lists.newArrayList();
+        if (!Strings.isNullOrEmpty(content)) {
+            Pattern pattern = Pattern.compile(CONST.COMPENT_PH_PATTERN);
+            Matcher matcher = pattern.matcher(content);
+            if (matcher != null) {
+                while (matcher.find()) {
+                    tags.add(matcher.group(0));
+                }
+            }
+        }
+        return tags;
+    }
 }
