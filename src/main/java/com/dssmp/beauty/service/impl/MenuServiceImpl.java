@@ -2,9 +2,11 @@ package com.dssmp.beauty.service.impl;
 
 import com.dssmp.beauty.dao.MenuDao;
 import com.dssmp.beauty.model.AbstractMenu;
+import com.dssmp.beauty.model.Page;
 import com.dssmp.beauty.model.ParentMenu;
 import com.dssmp.beauty.model.SubMenu;
 import com.dssmp.beauty.service.MenuService;
+import com.dssmp.beauty.service.PageService;
 import com.google.common.base.Preconditions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +35,9 @@ public class MenuServiceImpl implements MenuService {
 
     @Autowired
     private MenuDao menuDao;
+
+    @Autowired
+    private PageService pageService;
 
 
     @Override
@@ -77,11 +82,15 @@ public class MenuServiceImpl implements MenuService {
                 }
             }
             if (iscanDelete) {
+                //删除PAGE对象
+                Page page = this.pageService.getPageByUrl(subMenu.getUrl());
+                if (page != null) {
+                    this.pageService.deletePage(page.getId());
+                }
                 this.menuDao.deleteMenus(mid);
             }
         }
     }
-
 
 
 }

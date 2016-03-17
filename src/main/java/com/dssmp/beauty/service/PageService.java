@@ -43,4 +43,10 @@ public interface PageService {
      * @return
      */
     public Page getPageById(long id);
+
+    /**
+     * 删除Page对象
+     * @param id
+     */
+    public void deletePage(long id);
 }

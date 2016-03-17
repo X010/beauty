@@ -205,6 +205,7 @@ public class MainController {
         long mid = RequestUtil.getLong(request, "mid", 0);
         if (mid > 0) {
             this.menuService.deleteMenus(mid);
+
         }
         model.setViewName("redirect:menu_m.action");
         return model;
@@ -304,6 +305,21 @@ public class MainController {
             model.addObject("roles", roleGroups);
         }
         model.setViewName("role_m");
+        return model;
+    }
+
+    /**
+     * 用户权限组管理
+     *
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "role_m_u.action")
+    public ModelAndView role_m_u(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
+
+        model.setViewName("role_m_u");
         return model;
     }
 

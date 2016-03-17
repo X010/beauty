@@ -54,4 +54,10 @@ public class PageServiceImpl implements PageService {
         Preconditions.checkArgument(id > 0);
         return this.pageDao.findPageById(id);
     }
+
+    @Override
+    public void deletePage(long id) {
+        Preconditions.checkArgument(id > 0);
+        this.pageDao.deletePageById(id);
+    }
 }

@@ -1,6 +1,7 @@
 package com.dssmp.beauty.dao;
 
 import com.dssmp.beauty.model.Page;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -50,4 +51,11 @@ public interface PageDao {
      */
     @Select("select * from beauty_page where id=#{id}")
     public Page findPageById(@Param("id") long id);
+
+    /**
+     * 根据ID删除Page对象
+     * @param id
+     */
+    @Delete("delete from beauty_page where id=#{id}")
+    public void deletePageById(@Param("id") long id);
 }

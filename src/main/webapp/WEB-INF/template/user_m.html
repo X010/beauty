@@ -60,7 +60,9 @@
                                     <tr>
                                         <td>${user.id}</td>
                                         <td>${user.username}</td>
-                                        <td><a class="btn btn-danger btn-xs" href="user_d.action?uid=${user.id}">delete</a></td>
+                                        <td><a class="btn btn-danger btn-xs" href="user_d.action?uid=${user.id}">delete</a>
+                                        &nbsp;&nbsp;<a class="btn btn-bitbucket btn-xs" href="role_m_u.action?uid=${user.id}">role</a>
+                                        </td>
                                     </tr>
                                 </#list>
                             </#if>
