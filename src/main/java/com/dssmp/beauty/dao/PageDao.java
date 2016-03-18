@@ -30,7 +30,7 @@ public interface PageDao {
      *
      * @param page
      */
-    @Insert("insert into beauty_page(url,createtime,status,tid,rgids)values(#{url},#{createtime},#{status},#{tid},#{rgids})")
+    @Insert("insert into beauty_page(url,createtime,status,tid)values(#{url},#{createtime},#{status},#{tid})")
     public void insertPage(Page page);
 
 

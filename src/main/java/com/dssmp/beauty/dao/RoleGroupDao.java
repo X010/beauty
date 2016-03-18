@@ -1,10 +1,7 @@
 package com.dssmp.beauty.dao;
 
 import com.dssmp.beauty.model.RoleGroup;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -35,6 +32,14 @@ public interface RoleGroupDao {
     @Insert("insert into beauty_role_group(roleGroupName,createtime,roleItem)values(#{roleGroupName},#{createtime},#{roleItem})")
     public void insertRoleGroup(RoleGroup roleGroup);
 
+    /**
+     * 更新权限组信息
+     *
+     * @param roleGroup
+     */
+    @Update("update beauty_role_group set roleGroupName=#{roleGroupName},roleItem=#{roleItem} where id=#{id}")
+    public void updateRoleGroup(RoleGroup roleGroup);
+
 
     /**
      * 获取所有的组信息
@@ -43,6 +48,15 @@ public interface RoleGroupDao {
      */
     @Select("select * from beauty_role_group order by id desc")
     public List<RoleGroup> findRoleGroup();
+
+    /**
+     * 根据ID获取权限级信息
+     *
+     * @param id
+     * @return
+     */
+    @Select("select * from beauty_role_group where id=#{id}")
+    public RoleGroup findRoleGroupById(@Param("id") long id);
 
 
     /**

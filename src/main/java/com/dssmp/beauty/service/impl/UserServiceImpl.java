@@ -50,11 +50,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public void saveUser(User user) {
         Preconditions.checkNotNull(user);
-        //看检测用户是否存在
-        User tempUser = this.userDao.findUserByUserName(user.getUsername());
-        if (tempUser == null) {
-            user.setPassword(MD5Util.MD5(user.getPassword()));
-            this.userDao.insertUserByUser(user);
+        if (user.getId() > 0) {
+            this.userDao.updateUser(user);
+        } else {
+            //看检测用户是否存在
+            User tempUser = this.userDao.findUserByUserName(user.getUsername());
+            if (tempUser == null) {
+                user.setPassword(MD5Util.MD5(user.getPassword()));
+                this.userDao.insertUserByUser(user);
+            }
         }
     }
 
@@ -62,5 +66,11 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(long id) {
         Preconditions.checkArgument(id > 0);
         this.userDao.deleteUser(id);
+    }
+
+    @Override
+    public User getUserById(long id) {
+        Preconditions.checkArgument(id > 0);
+        return this.userDao.findUserById(id);
     }
 }

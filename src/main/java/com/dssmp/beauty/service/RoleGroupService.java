@@ -42,4 +42,11 @@ public interface RoleGroupService {
      * @param id
      */
     public void deleteRoleGroup(long id);
+
+    /**
+     * 根据ID获取权限组
+     * @param id
+     * @return
+     */
+    public RoleGroup findRoleGroupById(long id);
 }

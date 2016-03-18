@@ -1,10 +1,7 @@
 package com.dssmp.beauty.dao;
 
 import com.dssmp.beauty.model.User;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -39,6 +36,7 @@ public interface UserDao {
 
     /**
      * 根据用户获取用户
+     *
      * @param username
      * @return
      */
@@ -69,4 +67,22 @@ public interface UserDao {
      */
     @Insert("insert into beauty_user(username,password)values(#{username},#{password})")
     public void insertUserByUser(User user);
+
+
+    /**
+     * 根据ID获取用户
+     *
+     * @param id
+     * @return
+     */
+    @Select("select * from beauty_user where id=#{id}")
+    public User findUserById(@Param("id") long id);
+
+    /**
+     * 更新用户
+     *
+     * @param user
+     */
+    @Update("update beauty_user set username=#{username},rgids=#{rgids} where id=#{id}")
+    public void updateUser(User user);
 }

@@ -38,7 +38,7 @@ public class RoleGroupServiceImpl implements RoleGroupService {
         Preconditions.checkNotNull(roleGroup);
         if (roleGroup.getId() > 0) {
             //修改
-
+            this.roleGroupDao.updateRoleGroup(roleGroup);
         } else {
             this.roleGroupDao.insertRoleGroup(roleGroup);
         }
@@ -55,5 +55,11 @@ public class RoleGroupServiceImpl implements RoleGroupService {
     public void deleteRoleGroup(long id) {
         Preconditions.checkArgument(id > 0);
         this.roleGroupDao.deleteRoleGroup(id);
+    }
+
+    @Override
+    public RoleGroup findRoleGroupById(long id) {
+        Preconditions.checkArgument(id > 0);
+        return this.roleGroupDao.findRoleGroupById(id);
     }
 }

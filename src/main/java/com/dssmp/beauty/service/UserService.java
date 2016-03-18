@@ -53,4 +53,12 @@ public interface UserService {
      * @param id
      */
     public void deleteUser(long id);
+
+    /**
+     * 根据ID获取用户
+     * @param id
+     * @return
+     */
+    public User getUserById(long id);
+
 }

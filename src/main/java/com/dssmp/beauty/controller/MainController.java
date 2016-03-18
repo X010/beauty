@@ -267,23 +267,46 @@ public class MainController {
     @RequestMapping(value = "role_a.action")
     public ModelAndView role_a(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView model = new ModelAndView();
+        String action = RequestUtil.getString(request, "action", null);
+        long id = RequestUtil.getLong(request, "id", 0);
         if (CONST.HTTP_METHOD_POST.equals(request.getMethod())) {
             String name = RequestUtil.getString(request, "name", null);
             String[] role_items = request.getParameterValues("role_item");
             if (!Strings.isNullOrEmpty(name) && role_items != null && role_items.length > 0) {
                 String roleItems = Joiner.on(",").join(role_items);
-                RoleGroup roleGroup = new RoleGroup();
-                roleGroup.setCreatetime(new Date());
-                roleGroup.setRoleGroupName(name);
-                roleGroup.setRoleItem(roleItems);
-
-                this.roleGroupService.saveRoleGroup(roleGroup);
+                if (id > 0) {
+                    //更新
+                    RoleGroup roleGroup = this.roleGroupService.findRoleGroupById(id);
+                    if (roleGroup != null) {
+                        roleGroup.setRoleGroupName(name);
+                        roleGroup.setRoleItem(roleItems);
+                        this.roleGroupService.saveRoleGroup(roleGroup);
+                        model.setViewName("redirect:role_m.action");
+                        return model;
+                    }
+                } else {
+                    //新增
+                    RoleGroup roleGroup = new RoleGroup();
+                    roleGroup.setCreatetime(new Date());
+                    roleGroup.setRoleGroupName(name);
+                    roleGroup.setRoleItem(roleItems);
+                    this.roleGroupService.saveRoleGroup(roleGroup);
+                }
+            }
+        }
+        if (!Strings.isNullOrEmpty(action)) {
+            RoleGroup roleGroup = this.roleGroupService.findRoleGroupById(id);
+            if (roleGroup != null) {
+                model.addObject("rg", roleGroup);
             }
         }
         //读取所有的菜单项
         List<ParentMenu> menus = this.menuService.getLeftMenu();
         if (menus != null) {
             model.addObject("menus", menus);
+        }
+        if (id > 0) {
+            model.addObject("id", id);
         }
         return model;
     }
@@ -316,7 +339,15 @@ public class MainController {
     @RequestMapping(value = "role_m_u.action")
     public ModelAndView role_m_u(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView model = new ModelAndView();
-        User user = getCurrentUser(request);
+        long uid = RequestUtil.getLong(request, "uid", 0);
+        User user = this.userService.getUserById(uid);
+        if (CONST.HTTP_METHOD_POST.equals(request.getMethod())) {
+            String[] rids = request.getParameterValues("roles");
+            user.setRgids(Joiner.on(",").join(rids));
+            this.userService.saveUser(user);
+            model.setViewName("redirect:user_m.action");
+            return model;
+        }
         if (user != null) {
             model.addObject("user", user);
         }
