@@ -1,10 +1,7 @@
 package com.dssmp.beauty.dao;
 
 import com.dssmp.beauty.model.Template;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -36,6 +33,15 @@ public interface TemplateDao {
     @Insert("insert into beauty_template(title,description,createtime,header,status,content,tagNum,tagMap)values(#{title},#{description},#{createtime},#{header}" +
             ",#{status},#{content},#{tagNum},#{tagMap})")
     public void insertTemplate(Template template);
+
+
+    /**
+     * 更新模板信息
+     *
+     * @param template
+     */
+    @Update("update beauty_template set title=#{title},description=#{description},header=#{header},content=#{content},tagNum=#{tagNum},tagMap=#{tagMap} where id=#{id}")
+    public void updateTemplate(Template template);
 
     /**
      * 获取模板列表

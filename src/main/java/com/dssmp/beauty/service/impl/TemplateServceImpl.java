@@ -46,9 +46,8 @@ public class TemplateServceImpl implements TemplateService {
     @Override
     public void saveTemplate(Template template) {
         Preconditions.checkNotNull(template);
-
         if (template.getId() > 0) {
-
+            this.templateDao.updateTemplate(template);
         } else {
             this.templateDao.insertTemplate(template);
         }

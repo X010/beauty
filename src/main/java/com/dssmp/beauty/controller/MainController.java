@@ -420,6 +420,7 @@ public class MainController {
      */
     @RequestMapping(value = "template_a.action")
     public ModelAndView template_a(HttpServletRequest request, HttpServletResponse response) {
+        long id = RequestUtil.getLong(request, "id", 0);
         ModelAndView model = new ModelAndView();
         if (CONST.HTTP_METHOD_POST.equals(request.getMethod())) {
             String name = RequestUtil.getString(request, "name", null);
@@ -429,23 +430,50 @@ public class MainController {
 
             //保存模板数据
             if (!Strings.isNullOrEmpty(name) && !Strings.isNullOrEmpty(description) && !Strings.isNullOrEmpty(header) && !Strings.isNullOrEmpty(content)) {
-                Template template = new Template();
-                template.setCreatetime(new Date());
-                template.setStatus(1);
-                template.setContent(content);
-                template.setHeader(header);
-                template.setDescription(description);
-                template.setTitle(name);
+                if (id > 0) {
+                    Template template = this.templateService.findTemplateById(id);
+                    if (template != null) {
+                        template.setContent(content);
+                        template.setHeader(header);
+                        template.setDescription(description);
+                        template.setTitle(name);
+                        //做模板分析
+                        List<String> tags = TemplateAnlayserUntil.getTemplateTag(content);
+                        if (tags != null && tags.size() > 0) {
+                            template.setTagNum(tags.size());
+                            template.setTagMap(Joiner.on(",").join(tags));
+                        }
+                        this.templateService.saveTemplate(template);
+                        model.setViewName("redirect:template_m.action");
+                        return model;
+                    }
+                } else {
+                    Template template = new Template();
+                    template.setCreatetime(new Date());
+                    template.setStatus(1);
+                    template.setContent(content);
+                    template.setHeader(header);
+                    template.setDescription(description);
+                    template.setTitle(name);
 
-                //做模板分析
-                List<String> tags = TemplateAnlayserUntil.getTemplateTag(content);
-                if (tags != null && tags.size() > 0) {
-                    template.setTagNum(tags.size());
-                    template.setTagMap(Joiner.on(",").join(tags));
+                    //做模板分析
+                    List<String> tags = TemplateAnlayserUntil.getTemplateTag(content);
+                    if (tags != null && tags.size() > 0) {
+                        template.setTagNum(tags.size());
+                        template.setTagMap(Joiner.on(",").join(tags));
+                    }
+                    this.templateService.saveTemplate(template);
                 }
-                this.templateService.saveTemplate(template);
             }
         }
+        if (id > 0) {
+            //修改
+            Template template = this.templateService.findTemplateById(id);
+            if (template != null) {
+                model.addObject("template", template);
+            }
+        }
+
         model.setViewName("template_a");
         return model;
     }
