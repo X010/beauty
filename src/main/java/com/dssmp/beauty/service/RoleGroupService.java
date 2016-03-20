@@ -1,6 +1,8 @@
 package com.dssmp.beauty.service;
 
+import com.dssmp.beauty.model.Page;
 import com.dssmp.beauty.model.RoleGroup;
+import com.dssmp.beauty.model.User;
 
 import java.util.List;
 
@@ -49,4 +51,11 @@ public interface RoleGroupService {
      * @return
      */
     public RoleGroup findRoleGroupById(long id);
+
+    /**
+     * 根据用户的权限组信息获取所有权限信息
+     * @param user
+     * @return
+     */
+    public String getRoleItemByUid(User user);
 }

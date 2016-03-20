@@ -1,13 +1,14 @@
 package com.dssmp.beauty.service.impl;
 
 import com.dssmp.beauty.dao.MenuDao;
-import com.dssmp.beauty.model.AbstractMenu;
-import com.dssmp.beauty.model.Page;
-import com.dssmp.beauty.model.ParentMenu;
-import com.dssmp.beauty.model.SubMenu;
+import com.dssmp.beauty.model.*;
 import com.dssmp.beauty.service.MenuService;
 import com.dssmp.beauty.service.PageService;
+import com.dssmp.beauty.service.RoleGroupService;
+import com.dssmp.beauty.service.UserService;
 import com.google.common.base.Preconditions;
+import com.google.common.base.Strings;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +40,11 @@ public class MenuServiceImpl implements MenuService {
     @Autowired
     private PageService pageService;
 
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private RoleGroupService roleGroupService;
 
     @Override
     public List<ParentMenu> getLeftMenu() {
@@ -50,6 +56,39 @@ public class MenuServiceImpl implements MenuService {
             });
         }
         return parentMenus;
+    }
+
+    @Override
+    public List<ParentMenu> getLeftMenuByUid(long uid) {
+        Preconditions.checkArgument(uid > 0);
+        List<ParentMenu> parentMenus = this.getLeftMenu();
+        User user = this.userService.getUserById(uid);
+        //获取用户所有的权限项
+        String roleItems = this.roleGroupService.getRoleItemByUid(user);
+        if (!Strings.isNullOrEmpty(roleItems)) {
+            final List<ParentMenu> userMenu = Lists.newArrayList();
+            if (parentMenus != null && user != null) {
+                //生成用户的菜单
+                parentMenus.stream().forEach(parentMenu -> {
+                    if (parentMenu.getMenus() != null && parentMenu.getMenus().size() > 0) {
+                        //判断子项是否有权限
+                        List<SubMenu> subMenus = parentMenu.getMenus();
+                        final List<SubMenu> haveRole = Lists.newArrayList();
+                        subMenus.stream().forEach(subMenu -> {
+                            if (roleItems.indexOf(("," + String.valueOf(subMenu.getMenuid()) + ",")) > 0) {
+                                haveRole.add(subMenu);
+                            }
+                        });
+                        if (haveRole.size() > 0) {
+                            parentMenu.setMenus(haveRole);
+                            userMenu.add(parentMenu);
+                        }
+                    }
+                });
+            }
+            return parentMenus;
+        }
+        return null;
     }
 
     @Override

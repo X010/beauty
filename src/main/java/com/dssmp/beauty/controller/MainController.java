@@ -112,7 +112,8 @@ public class MainController {
     public ModelAndView main(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView model = new ModelAndView();
         String menu = "[]";
-        List<ParentMenu> parentMenuList = this.menuService.getLeftMenu();
+        User user = this.getCurrentUser(request);
+        List<ParentMenu> parentMenuList = this.menuService.getLeftMenuByUid(user.getId());
         if (parentMenuList != null) {
             menu = JsonParser.simpleJson(parentMenuList);
         }

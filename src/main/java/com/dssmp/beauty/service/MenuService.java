@@ -33,6 +33,13 @@ public interface MenuService {
     public List<ParentMenu> getLeftMenu();
 
     /**
+     * 根据用户
+     * @param uid
+     * @return
+     */
+    public List<ParentMenu> getLeftMenuByUid(long uid);
+
+    /**
      * 获取一级菜单
      *
      * @return

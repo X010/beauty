@@ -2,8 +2,10 @@ package com.dssmp.beauty.service.impl;
 
 import com.dssmp.beauty.dao.RoleGroupDao;
 import com.dssmp.beauty.model.RoleGroup;
+import com.dssmp.beauty.model.User;
 import com.dssmp.beauty.service.RoleGroupService;
 import com.google.common.base.Preconditions;
+import com.google.common.base.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -61,5 +63,27 @@ public class RoleGroupServiceImpl implements RoleGroupService {
     public RoleGroup findRoleGroupById(long id) {
         Preconditions.checkArgument(id > 0);
         return this.roleGroupDao.findRoleGroupById(id);
+    }
+
+    @Override
+    public String getRoleItemByUid(User user) {
+        Preconditions.checkNotNull(user);
+        String rgids = user.getRgids();
+        if (!Strings.isNullOrEmpty(rgids)) {
+            String[] rgid = rgids.split("\\,");
+            if (rgids != null && rgid.length > 0) {
+                StringBuilder roleItems = new StringBuilder(",");
+                for (String rig : rgid) {
+                    if (!Strings.isNullOrEmpty(rig)) {
+                        RoleGroup roleGroup = this.findRoleGroupById(Long.valueOf(rig));
+                        if (roleGroup != null) {
+                            roleItems.append(roleGroup.getRoleItem()).append(",");
+                        }
+                    }
+                }
+                return roleItems.toString();
+            }
+        }
+        return null;
     }
 }
