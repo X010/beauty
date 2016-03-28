@@ -29,12 +29,12 @@ public class User {
     /**
      * 用户名
      */
-    @JSONField(deserialize = false)
     private String username;
 
     /**
      * 密码
      */
+    @JSONField(deserialize = false)
     private String password;
 
     /**
